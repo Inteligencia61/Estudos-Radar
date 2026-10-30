@@ -256,7 +256,7 @@ footer img{height:42px}
           </div>
           <div class="passo-f" data-p="4">
             <div class="ok"><div class="sim">✓</div><h3>Pronto! Sua avaliação está a caminho.</h3>
-            <p class="aj" style="margin:8px 0 0">Abrimos o WhatsApp da 61 com os seus dados. <b>Toque em enviar</b> para confirmar. Se não abriu, <a id="waLink" href="#" target="_blank" rel="noopener">toque aqui</a>.</p>
+            <p class="aj" style="margin:8px 0 0">Recebemos os seus dados e abrimos o WhatsApp da 61 com a sua mensagem. <b>Toque em enviar</b> para falar com a gente mais rápido. Se não abriu, <a id="waLink" href="#" target="_blank" rel="noopener">toque aqui</a>.</p>
             <ol><li>Um especialista do seu bairro te responde.</li><li>Vocês combinam uma visita rápida ao imóvel, sem compromisso.</li><li>Você recebe a avaliação: preço, tempo de venda e estratégia.</li></ol></div>
           </div>
           <div class="erro" id="erro" role="alert"></div>
@@ -396,6 +396,9 @@ footer img{height:42px}
 
 <script>
 const WHATS='5561998786161';
+const EMAIL_LEADS='61@61imoveis.com';
+const UTM=(()=>{try{const q=new URLSearchParams(location.search);return ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','gclid'].filter(k=>q.get(k)).map(k=>k+'='+q.get(k)).join(' · ')}catch(e){return ''}})();
+function mandaEmail(d){try{fetch('https://formsubmit.co/ajax/'+EMAIL_LEADS,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(Object.assign({_subject:'Novo proprietário pela página da 61: '+d['Nome']+' · '+d['Bairro'],_template:'table',_captcha:'false'},d))}).catch(()=>{})}catch(e){}}
 const P=[{"id": "asa-sul", "nome": "Asa Sul", "tipo": "apartamentos", "recorte": "Endereços SQS · 2+ quartos · R$ 1 a 5 mi", "n": 238, "m2": 14433.155080213903, "valor": 1890000.0, "area": 133.0, "meses": 3.234649122807018, "giro": 0.3091525423728813}, {"id": "asa-norte", "nome": "Asa Norte", "tipo": "apartamentos", "recorte": "Endereços SQN · 2+ quartos · R$ 1 a 5 mi", "n": 292, "m2": 13761.904761904761, "valor": 1750000.0, "area": 125, "meses": 3.640942733253589, "giro": 0.27465414132080795}, {"id": "sudoeste", "nome": "Sudoeste", "tipo": "apartamentos", "recorte": "Endereços SQSW · 2+ quartos · R$ 1 a 5 mi", "n": 172, "m2": 15478.547854785478, "valor": 2220000.0, "area": 128, "meses": 3.414916423289629, "giro": 0.29283293528943477}, {"id": "noroeste", "nome": "Noroeste", "tipo": "apartamentos", "recorte": "Endereços SQNW · 2+ quartos · R$ 1 a 5 mi", "n": 349, "m2": 17003.923647932133, "valor": 2499000, "area": 155.0, "meses": 6.076266175511093, "giro": 0.16457475217762116}, {"id": "lago-sul", "nome": "Lago Sul", "tipo": "casas", "recorte": "Endereços SHIS (QI e QL) · casas · todos os preços", "n": 555, "m2": 10261.017628205129, "valor": 6000000, "area": 699.5, "meses": 8.024342105263157, "giro": 0.1246208083955071}, {"id": "lago-norte", "nome": "Lago Norte", "tipo": "casas", "recorte": "Endereços SHIN (QI e QL) · casas · todos os preços", "n": 316, "m2": 6629.166666666666, "valor": 3500000.0, "area": 539.0, "meses": null, "giro": null}, {"id": "aguas-claras", "nome": "Águas Claras", "tipo": "apartamentos", "recorte": "Sul e Norte · 2+ quartos · a partir de R$ 900 mil", "n": 796, "m2": 9585.055096418733, "valor": 1350000.0, "area": 149.0, "meses": 5.095915841584158, "giro": 0.19623557984213724}];
 const PREP={'Asa Sul':'na','Asa Norte':'na','Sudoeste':'no','Noroeste':'no','Lago Sul':'no','Lago Norte':'no','Águas Claras':'em'};
 const nf=(x,d=0)=>Number(x).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
@@ -449,6 +452,7 @@ seg.onclick=av;vol.onclick=()=>vai(Math.max(0,et-1));
 document.getElementById('tel').addEventListener('input',e=>{let d=e.target.value.replace(/\D/g,'').slice(0,11);let o=d;if(d.length>2)o=`(${d.slice(0,2)}) `+d.slice(2);if(d.length>7)o=`(${d.slice(0,2)}) ${d.slice(2,3)} ${d.slice(3,7)}-${d.slice(7)}`;e.target.value=o});
 function envia(){const nome=document.getElementById('nome').value.trim(),tel=document.getElementById('tel').value.trim();
  const m=`Olá, 61! Sou ${nome} e quero uma avaliação gratuita do meu imóvel.\n• ${S.tipo}${S.quartos&&S.quartos!=='-'?`, ${S.quartos} quarto${S.quartos==='1'?'':'s'}`:''}\n• ${S.bairro}\n• ${S.momento}\n• Meu WhatsApp: ${tel}\n\n(Vim pela página de avaliação da 61)`;
+ mandaEmail({'Nome':nome,'WhatsApp':tel,'Bairro':S.bairro,'Tipo':S.tipo,'Quartos':S.quartos==='-'?'não se aplica':S.quartos,'Momento':S.momento,'Origem':UTM||document.referrer||'direto','Página':location.href.split('?')[0],'Data e hora':new Date().toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'})});
  const url=waBase(m);document.getElementById('waLink').href=url;vai(4);ev('generate_lead',{bairro:S.bairro,tipo:S.tipo,momento:S.momento});try{window.open(url,'_blank','noopener')}catch(e){}}
 </script>
 </body>
