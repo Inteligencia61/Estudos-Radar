@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Estudos de Mercado 61: preço do metro quadrado, oferta, liquidez e renda de aluguel em Asa Sul, Asa Norte, Sudoeste, Noroeste, Lago Sul, Lago Norte e Águas Claras. Edição mensal da 61 Imóveis.">
-<meta property="og:title" content="Estudos de Mercado 61 · 61 Imóveis">
-<meta property="og:description" content="Preço, oferta, liquidez e renda de aluguel em sete bairros de referência de Brasília, atualizados todo mês.">
+<meta name="description" content="Pulso 61: o que o DF está vendendo, alugando e pedindo, bairro a bairro. Preço do metro quadrado, oferta, liquidez e renda de aluguel em Asa Sul, Asa Norte, Sudoeste, Noroeste, Lago Sul, Lago Norte e Águas Claras. Acesse quando quiser; relatório em PDF todo mês. Da 61 Imóveis.">
+<meta property="og:title" content="Pulso 61 · Brasília tem pulso.">
+<meta property="og:description" content="O que o DF está vendendo, alugando e pedindo, bairro a bairro. Sete bairros de Brasília, lidos todos os dias.">
 <meta property="og:image" content="/img/og.png">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="/img/favicon.png">
-<title>Estudos de Mercado 61 · 61 Imóveis</title>
+<title>PULSO 61 · Brasília tem pulso</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@700;800;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
   /* 61 Imóveis: marinho + azul 61, fúcsia só como acento (~10%). Layout: faixa de bairros fixa no topo, conteúdo em colunas de leitura de painel. */
-  --ink:#000D3B; --azul:#74BEEA; --azul-esc:#3D8EC9; --azul-cl:#C7E5F7; --azul-xcl:#EEF3F9; --fucsia:#ED1165;
-  --texto:#24304A; --sub:#5F6980; --linha:#D6DCE6; --bg:#F6F8FB; --card:#FFFFFF;
+  --ink:#141414; --azul:#7FB0DD; --azul-esc:#3B6EA5; --azul-cl:#BFD9F2; --azul-xcl:#EAF1F8; --fucsia:#EC5C9C;
+  --texto:#2A2723; --sub:#5E5850; --linha:#DDD3C2; --bg:#F2ECE1; --card:#FBF8F2;
   --ok:#1E8E5A; --aviso:#C98A00; --erro:#C42B2B;
-  --display:"Montserrat",system-ui,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --display:"Inter Tight",system-ui,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:light;
 }
 *{box-sizing:border-box}
@@ -39,10 +39,10 @@ header.top{background:var(--card);border-bottom:1px solid var(--linha)}
 .topin h1{font-size:22px;letter-spacing:-.4px}
 nav.bairros{position:sticky;top:0;z-index:5;background:var(--ink)}
 nav.bairros .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
-nav.bairros a{flex:none;color:#C7E5F7;text-decoration:none;font-weight:600;font-size:13.5px;padding:7px 12px;border-radius:4px;white-space:nowrap}
-nav.bairros a:hover{background:#0B1C55;color:#fff}
+nav.bairros a{flex:none;color:#BFD9F2;text-decoration:none;font-weight:600;font-size:13.5px;padding:7px 12px;border-radius:4px;white-space:nowrap}
+nav.bairros a:hover{background:#2E2B27;color:#fff}
 nav.bairros a[aria-current="page"]{background:var(--azul);color:var(--ink)}
-nav.bairros .sep{flex:none;width:1px;background:#1F4C8C;margin:4px 6px}
+nav.bairros .sep{flex:none;width:1px;background:#3A3733;margin:4px 6px}
 main{padding:22px 0 60px}
 .card{background:var(--card);border:1px solid var(--linha);border-radius:6px;padding:18px 20px}
 .grid{display:grid;gap:16px}
@@ -57,10 +57,10 @@ main{padding:22px 0 60px}
 .dot{width:8px;height:8px;border-radius:50%;background:currentColor}
 /* KPIs */
 .band{background:var(--ink);color:#fff;border-radius:6px;display:grid;grid-template-columns:repeat(6,1fr);padding:14px 6px}
-.band>div{padding:0 14px;border-left:1px solid #1F4C8C}.band>div:first-child{border-left:0}
+.band>div{padding:0 14px;border-left:1px solid #3A3733}.band>div:first-child{border-left:0}
 .kl{font-size:10.5px;font-weight:700;color:var(--azul);letter-spacing:.8px;text-transform:uppercase}
 .kv{font-family:var(--display);font-size:24px;font-weight:700;line-height:1.15;white-space:nowrap}
-.kd{font-size:12px;color:#C7E5F7}
+.kd{font-size:12px;color:#BFD9F2}
 @media (max-width:860px){.band{grid-template-columns:repeat(2,1fr);row-gap:14px}.band>div:nth-child(odd){border-left:0}}
 /* tabelas */
 .tw{overflow-x:auto}
@@ -95,7 +95,7 @@ svg text{font-family:var(--body)}
 .paginas button{border:1px solid var(--linha);background:#fff;padding:0;border-radius:4px;overflow:hidden;flex:1;max-width:230px}
 .paginas img{width:100%;display:block}
 .btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:4px;padding:10px 16px;font-weight:700;font-size:14px;text-decoration:none}
-.btn.pri{background:var(--ink);color:#fff}.btn.pri:hover{background:#0B1C55}
+.btn.pri{background:var(--ink);color:#fff}.btn.pri:hover{background:#2E2B27}
 .btn.sec{background:var(--azul-xcl);color:var(--ink)}.btn.sec:hover{background:var(--azul-cl)}
 .acoes{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .msg{font-size:12.5px;color:var(--sub);min-height:18px;margin-top:6px}
@@ -104,7 +104,7 @@ svg text{font-family:var(--body)}
 .arq h3{font-size:15px}
 .box{background:var(--azul-xcl);border-left:3px solid var(--azul);padding:12px 14px;font-size:13.5px}
 dialog{border:0;padding:0;max-width:min(920px,96vw);border-radius:6px;background:#fff}
-dialog::backdrop{background:rgba(0,13,59,.7)}
+dialog::backdrop{background:rgba(20,20,20,.7)}
 dialog img{display:block;max-width:100%;height:auto}
 dialog .fechar{position:absolute;top:8px;right:8px}
 .cards7{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
@@ -122,9 +122,9 @@ footer{color:var(--sub);font-size:12.5px;border-top:1px solid var(--linha);paddi
  linear-gradient(90deg,transparent 0 0) ,repeating-linear-gradient(0deg,transparent 0 30px,rgba(116,190,234,.10) 30px 32px),repeating-linear-gradient(90deg,transparent 0 30px,rgba(116,190,234,.10) 30px 32px);transform:rotate(12deg)}
 .hero>div{position:relative;z-index:1;max-width:760px}
 .hero h2{color:#fff;font-size:34px;line-height:1.12;letter-spacing:-.8px;margin:10px 0 12px}
-.hero p{color:#C7E5F7;max-width:62ch;margin:0}
-.btn.hb{background:var(--azul);color:var(--ink)}.btn.hb:hover{background:#9CD2F1}
-.btn.hb2{background:transparent;color:#fff;border:1.5px solid #3D8EC9}.btn.hb2:hover{border-color:var(--azul)}
+.hero p{color:#BFD9F2;max-width:62ch;margin:0}
+.btn.hb{background:var(--azul);color:var(--ink)}.btn.hb:hover{background:#FFD24D}
+.btn.hb2{background:transparent;color:#fff;border:1.5px solid #3B6EA5}.btn.hb2:hover{border-color:var(--azul)}
 @media (max-width:600px){.hero{padding:24px 20px}.hero h2{font-size:26px}}
 .dest{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 @media (max-width:860px){.dest{grid-template-columns:1fr 1fr}}
@@ -149,17 +149,62 @@ footer{color:var(--sub);font-size:12.5px;border-top:1px solid var(--linha);paddi
 .leg span{display:inline-flex;align-items:center;gap:5px}.leg i{width:22px;height:10px;display:inline-block;border:1px solid var(--linha)}
 .prosa h3{font-size:15px;margin:14px 0 4px}.prosa h3:first-child{margin-top:0}.prosa p{margin:0;max-width:66ch}
 
+
+/* ===== Pulso 61 ===== */
+body{background:#F2ECE1}
+h1,h2,h3{font-weight:900;letter-spacing:-.02em}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-weight:500;letter-spacing:2px;color:#5E5850}
+header.top{background:#BFD9F2;border-bottom:0}
+.topin{padding:16px 20px}
+.marca{display:flex;align-items:center;gap:8px;text-decoration:none;color:#141414}
+.wm{font-family:"Inter Tight",sans-serif;font-weight:900;font-size:30px;letter-spacing:-1.2px;line-height:1}
+.wm61{font-family:"Inter Tight",sans-serif;font-weight:900;font-size:14px;background:#FFC20E;color:#141414;padding:3px 6px;line-height:1}
+.ed{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#141414;opacity:.7;margin-left:auto;margin-right:18px}
+.topin img{height:36px}
+nav.bairros{background:#141414}
+nav.bairros a{color:#F2ECE1}
+nav.bairros a:hover{background:#2E2B27;color:#fff}
+nav.bairros a[aria-current="page"]{background:#FFC20E;color:#141414}
+.tiles{height:10px}.tiles i{flex-basis:28px;height:10px;margin-right:0}
+.hero{background:#BFD9F2;color:#141414;border-radius:0;padding:40px 40px 0;display:flex;flex-direction:column}
+.hero::after{display:none}
+.hero>div{max-width:820px}
+.hero .eyebrow{color:#141414;opacity:.7}
+.hero h2{color:#141414;font-size:64px;line-height:.98;letter-spacing:-2.5px;margin:12px 0 6px}
+.hero p{color:#2A2723;font-size:16px}
+.hero p.ser{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-size:34px;line-height:1.1;color:#141414;margin:0 0 14px;max-width:none}
+.hero .acoes{margin-top:18px}
+.btn.hb{background:#141414;color:#FFC20E}.btn.hb:hover{background:#2E2B27}
+.btn.hb2{border:2px solid #141414;color:#141414}.btn.hb2:hover{background:#FFC20E;border-color:#141414}
+.hero img.ceu{display:block;width:calc(100% + 80px);margin:24px -40px 0;height:auto}
+.btn{border-radius:0}
+.btn.pri{background:#141414;color:#FFC20E}
+.card,.dest a,.leitura,.band{border-radius:0}
+.band{background:#141414}.kl{color:#FFC20E}.kd{color:#D9D3C7}
+.dest a{background:#FBF8F2;border-left:6px solid #FFC20E}
+.dest a:nth-child(2){border-left-color:#EC5C9C}.dest a:nth-child(3){border-left-color:#8B5CC4}.dest a:nth-child(4){border-left-color:#3B6EA5}
+.dest a:hover{border-color:#141414}
+.dv{font-weight:900;color:#141414}
+.leitura{border-left:6px solid #FFC20E;background:#FBF8F2}
+.sec h2{font-size:22px}
+.chip{border-radius:0}
+.filtros button{border-radius:0}
+.filtros button[aria-pressed="true"]{background:#141414;color:#FFC20E}
+footer{border-top:4px solid #141414}
+footer b{color:#141414}
+@media (max-width:860px){.hero{padding:26px 20px 0}.hero h2{font-size:42px;letter-spacing:-1.5px}.hero p.ser{font-size:26px}.hero img.ceu{width:calc(100% + 40px);margin:18px -20px 0}.ed{display:none}.wm{font-size:24px}.topin img{height:28px}}
 </style>
 </head>
 <body>
 <div class="tiles" id="tiles" aria-hidden="true"></div>
 <header class="top"><div class="topin">
-  <div><div class="eyebrow">Inteligência de Mercado · edição de 29 out 2026</div><h1>Estudos de Mercado 61</h1></div>
-  <img src="/img/logo.png" alt="61 Imóveis">
+  <a class="marca" href="#visao-geral" aria-label="Pulso 61, início"><span class="wm">PULSO</span><span class="wm61">61</span></a>
+  <div class="ed">Edição de 29 out 2026</div>
+  <img src="/img/logo_pulso.png" alt="61 Imóveis">
 </div></header>
 <nav class="bairros" aria-label="Bairros"><div class="wrap" id="nav"></div></nav>
 <main><div class="wrap" id="app"></div></main>
-<footer><div class="wrap">61 Imóveis · Inteligência de Mercado. Leitura diária de páginas públicas de anúncios; preços pedidos, não de fechamento. Números de imóveis (anúncios do mesmo imóvel agrupados). Uso permitido com citação da fonte. Estudos para orientação; não constituem avaliação nem recomendação de investimento.</div></footer>
+<footer><div class="wrap"><b>Pulso 61</b> · 61 Imóveis. Leitura diária de páginas públicas de anúncios; preços pedidos, não de fechamento. Números de imóveis (anúncios do mesmo imóvel agrupados). Uso permitido com citação da fonte. Estudos para orientação; não constituem avaliação nem recomendação de investimento.</div></footer>
 <div class="tip" id="tip"></div>
 <dialog id="dlg"><button class="btn sec fechar" id="dlgx">Fechar</button><img id="dlgimg" alt=""></dialog>
 <script>
@@ -173,7 +218,7 @@ const dbr=s=>{const [y,m,d]=s.split('-');return d+'/'+m}, dlong=s=>{const [y,m,d
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const un=b=>b.tipo==='casas'?'casas':'imóveis';
 // faixa de azulejos
-(()=>{const p=['#74BEEA','#C7E5F7','#E8F4FB','#3D8EC9','#C7E5F7','#E8F4FB','#74BEEA','#FFFFFF'];let s=7,h='';for(let i=0;i<140;i++){s=(s*9301+49297)%233280;h+=`<i style="background:${p[s%8]}"></i>`}document.getElementById('tiles').innerHTML=h})();
+(()=>{const p=['#FFC20E','#EC5C9C','#8B5CC4','#FBF8F2','#BFD9F2','#FFC20E','#EC5C9C','#8B5CC4'];let s=7,h='';for(let i=0;i<140;i++){s=(s*9301+49297)%233280;h+=`<i style="background:${p[s%8]}"></i>`}document.getElementById('tiles').innerHTML=h})();
 // navegação
 const GRUPOS=[['Plano Piloto',['asa-sul','asa-norte','sudoeste','noroeste']],['Lagos',['lago-sul','lago-norte']],['Águas Claras',['aguas-claras']]];
 function nav(cur){let h=`<a href="#visao-geral" ${cur==='visao-geral'?'aria-current="page"':''}>Visão geral</a><span class="sep"></span>`;
@@ -194,14 +239,14 @@ function sentChip(b){if(PUBLICO)return '';const n=b.alertas.length;return n?`<sp
 function rangeChart(){ // faixa central do m² por bairro
   const W=760,rh=34,l=150,r=70,H=40+B.length*rh; const lo=4000,hi=24000; const X=v=>l+(v-lo)/(hi-lo)*(W-l-r);
   const ord=[...B].sort((a,b)=>b.m2-a.m2); let s='';
-  for(let v=lo;v<=hi;v+=4000){s+=`<line x1="${X(v)}" x2="${X(v)}" y1="18" y2="${H-18}" stroke="#EEF3F9"/><text x="${X(v)}" y="${H-4}" font-size="11" fill="#5F6980" text-anchor="middle">${v/1000} mil</text>`}
-  ord.forEach((b,i)=>{const y=34+i*rh;const c=b.tipo==='casas'?'#3D8EC9':'#74BEEA';
+  for(let v=lo;v<=hi;v+=4000){s+=`<line x1="${X(v)}" x2="${X(v)}" y1="18" y2="${H-18}" stroke="#EAF1F8"/><text x="${X(v)}" y="${H-4}" font-size="11" fill="#5E5850" text-anchor="middle">${v/1000} mil</text>`}
+  ord.forEach((b,i)=>{const y=34+i*rh;const c=b.tipo==='casas'?'#3B6EA5':'#7FB0DD';
     s+=`<g class="rg" data-id="${b.id}" style="cursor:pointer"><rect x="0" y="${y-15}" width="${W}" height="${rh-2}" fill="transparent"/>
-    <text x="0" y="${y+4}" font-size="13" font-weight="600" fill="#000D3B">${b.nome}</text>
+    <text x="0" y="${y+4}" font-size="13" font-weight="600" fill="#141414">${b.nome}</text>
     <line x1="${X(b.p25)}" x2="${X(b.p75)}" y1="${y}" y2="${y}" stroke="${c}" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="${X(b.m2)}" cy="${y}" r="5.5" fill="#fff" stroke="#000D3B" stroke-width="2.2"/>
-    <text x="${X(b.p75)+10}" y="${y+4}" font-size="12.5" font-weight="700" fill="#000D3B" class="num">${mil(b.m2)}</text></g>`});
-  s+=`<text x="${l}" y="11" font-size="11.5" fill="#5F6980">R$/m² pedido: faixa central (metade dos imóveis) e mediana</text>`;
+    <circle cx="${X(b.m2)}" cy="${y}" r="5.5" fill="#fff" stroke="#141414" stroke-width="2.2"/>
+    <text x="${X(b.p75)+10}" y="${y+4}" font-size="12.5" font-weight="700" fill="#141414" class="num">${mil(b.m2)}</text></g>`});
+  s+=`<text x="${l}" y="11" font-size="11.5" fill="#5E5850">R$/m² pedido: faixa central (metade dos imóveis) e mediana</text>`;
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Faixa central do preço por metro quadrado em cada bairro">${s}</svg>`}
 function serieChart(b){
   const S=b.serie.filter(x=>x[2]);const W=760,H=250,l=46,r=64,t=16,bm=26,pw=W-l-r,ph=H-t-bm;
@@ -209,14 +254,14 @@ function serieChart(b){
   const nmax=Math.ceil(Math.max(...S.map(x=>x[1]))*1.1/50)*50;const Yn=n=>t+ph-n/nmax*ph;
   const ms=S.map(x=>x[2]);const mlo=Math.floor((Math.min(...ms)-300)/200)*200,mhi=Math.ceil((Math.max(...ms)+300)/200)*200;const Ym=m=>t+(1-(m-mlo)/(mhi-mlo))*ph;
   const st=Math.max(200,Math.round((mhi-mlo)/3/100)*100);let s='';
-  for(let m=mlo;m<=mhi;m+=st)s+=`<line x1="${l}" x2="${l+pw}" y1="${Ym(m)}" y2="${Ym(m)}" stroke="#EEF3F9"/><text x="${l+pw+6}" y="${Ym(m)+4}" font-size="11" fill="#000D3B" font-weight="600">${nf(m)}</text>`;
-  for(let n=0;n<=nmax;n+=Math.max(50,Math.floor(nmax/3/50)*50))s+=`<text x="${l-6}" y="${Yn(n)+4}" font-size="11" fill="#3D8EC9" text-anchor="end" font-weight="600">${n}</text>`;
+  for(let m=mlo;m<=mhi;m+=st)s+=`<line x1="${l}" x2="${l+pw}" y1="${Ym(m)}" y2="${Ym(m)}" stroke="#EAF1F8"/><text x="${l+pw+6}" y="${Ym(m)+4}" font-size="11" fill="#141414" font-weight="600">${nf(m)}</text>`;
+  for(let n=0;n<=nmax;n+=Math.max(50,Math.floor(nmax/3/50)*50))s+=`<text x="${l-6}" y="${Yn(n)+4}" font-size="11" fill="#3B6EA5" text-anchor="end" font-weight="600">${n}</text>`;
   const bw=Math.max(2,pw/span*.7);
-  S.forEach(([d,n,m])=>s+=`<rect x="${X(d)-bw/2}" y="${Yn(n)}" width="${bw}" height="${Yn(0)-Yn(n)}" fill="#C7E5F7"/>`);
-  s+=`<polyline points="${S.map(([d,n,m])=>X(d)+','+Ym(m)).join(' ')}" fill="none" stroke="#000D3B" stroke-width="2.4" stroke-linejoin="round"/>`;
-  const L=S[S.length-1];s+=`<circle cx="${X(L[0])}" cy="${Ym(L[2])}" r="4.5" fill="#ED1165"/>`;
-  for(let k=0;k<4;k++){const d=new Date(+d0+Math.round(k*span/3)*864e5);const iso=d.toISOString().slice(0,10);s+=`<text x="${X(iso)}" y="${H-6}" font-size="11" fill="#5F6980" text-anchor="middle">${dbr(iso)}</text>`}
-  s+=`<line id="cur" x1="0" x2="0" y1="${t}" y2="${t+ph}" stroke="#ED1165" stroke-width="1" style="display:none"/><rect id="hot" x="${l}" y="${t}" width="${pw}" height="${ph}" fill="transparent"/>`;
+  S.forEach(([d,n,m])=>s+=`<rect x="${X(d)-bw/2}" y="${Yn(n)}" width="${bw}" height="${Yn(0)-Yn(n)}" fill="#BFD9F2"/>`);
+  s+=`<polyline points="${S.map(([d,n,m])=>X(d)+','+Ym(m)).join(' ')}" fill="none" stroke="#141414" stroke-width="2.4" stroke-linejoin="round"/>`;
+  const L=S[S.length-1];s+=`<circle cx="${X(L[0])}" cy="${Ym(L[2])}" r="4.5" fill="#EC5C9C"/>`;
+  for(let k=0;k<4;k++){const d=new Date(+d0+Math.round(k*span/3)*864e5);const iso=d.toISOString().slice(0,10);s+=`<text x="${X(iso)}" y="${H-6}" font-size="11" fill="#5E5850" text-anchor="middle">${dbr(iso)}</text>`}
+  s+=`<line id="cur" x1="0" x2="0" y1="${t}" y2="${t+ph}" stroke="#EC5C9C" stroke-width="1" style="display:none"/><rect id="hot" x="${l}" y="${t}" width="${pw}" height="${ph}" fill="transparent"/>`;
   return `<svg class="chart" id="serie" viewBox="0 0 ${W} ${H}" role="img" aria-label="Oferta diária e R$/m² mediano">${s}</svg>`}
 function bindSerie(b){const svg=document.getElementById('serie');if(!svg)return;const S=b.serie.filter(x=>x[2]);
   const W=760,l=46,r=64,pw=W-l-r;const d0=new Date(S[0][0]),span=Math.max((new Date(S[S.length-1][0])-d0)/864e5,1);
@@ -226,17 +271,17 @@ function bindSerie(b){const svg=document.getElementById('serie');if(!svg)return;
     showTip(e,`<b>${dbr(best[0])}</b> · ${best[1]} ${un(b)} · R$ ${nf(best[2])}/m²`)});
   svg.addEventListener('mouseleave',()=>{hideTip();svg.querySelector('#cur').style.display='none'})}
 function fluxoChart(b){const S=b.semanas;const W=760,H=170,l=34,t=16,bm=24,pw=W-l-10,bw=pw/S.length;
-  const mx=Math.max(...S.map(x=>Math.max(x[1],x[2])))*1.25;const mid=t+(H-t-bm)/2;const Y=v=>(H-t-bm)/2*v/mx;let s=`<line x1="${l}" x2="${l+pw}" y1="${mid}" y2="${mid}" stroke="#D6DCE6"/>`;
+  const mx=Math.max(...S.map(x=>Math.max(x[1],x[2])))*1.25;const mid=t+(H-t-bm)/2;const Y=v=>(H-t-bm)/2*v/mx;let s=`<line x1="${l}" x2="${l+pw}" y1="${mid}" y2="${mid}" stroke="#DDD3C2"/>`;
   S.forEach(([w,e,x],i)=>{const cx=l+i*bw+bw/2;const ww=Math.min(26,bw*.6);
-    s+=`<g data-t="${esc(`Semana de ${dbr(w)}: entraram ${e}, saíram ${x}`)}" class="ft"><rect x="${cx-bw/2}" y="${t}" width="${bw}" height="${H-t-bm}" fill="transparent"/><rect x="${cx-ww/2}" y="${mid-Y(e)}" width="${ww}" height="${Y(e)}" fill="#3D8EC9"/><rect x="${cx-ww/2}" y="${mid}" width="${ww}" height="${Y(x)}" fill="#000D3B"/>
-    <text x="${cx}" y="${mid-Y(e)-4}" font-size="11" text-anchor="middle" fill="#3D8EC9" font-weight="700">${e}</text><text x="${cx}" y="${mid+Y(x)+13}" font-size="11" text-anchor="middle" fill="#000D3B" font-weight="700">${x}</text>
-    <text x="${cx}" y="${H-5}" font-size="11" text-anchor="middle" fill="#5F6980">${dbr(w)}</text></g>`});
+    s+=`<g data-t="${esc(`Semana de ${dbr(w)}: entraram ${e}, saíram ${x}`)}" class="ft"><rect x="${cx-bw/2}" y="${t}" width="${bw}" height="${H-t-bm}" fill="transparent"/><rect x="${cx-ww/2}" y="${mid-Y(e)}" width="${ww}" height="${Y(e)}" fill="#3B6EA5"/><rect x="${cx-ww/2}" y="${mid}" width="${ww}" height="${Y(x)}" fill="#141414"/>
+    <text x="${cx}" y="${mid-Y(e)-4}" font-size="11" text-anchor="middle" fill="#3B6EA5" font-weight="700">${e}</text><text x="${cx}" y="${mid+Y(x)+13}" font-size="11" text-anchor="middle" fill="#141414" font-weight="700">${x}</text>
+    <text x="${cx}" y="${H-5}" font-size="11" text-anchor="middle" fill="#5E5850">${dbr(w)}</text></g>`});
   return `<svg class="chart" id="fluxo" viewBox="0 0 ${W} ${H}" role="img" aria-label="Entradas e saídas por semana">${s}</svg>`}
 function rendaChart(b){const W=360,rh=28,l=110,H=30+b.renda.length*rh+10,hi=.15,X=v=>l+v/hi*(W-l-50);
-  let s=`<line x1="${X(.1375)}" x2="${X(.1375)}" y1="12" y2="${H-6}" stroke="#ED1165" stroke-dasharray="3 3"/><text x="${X(.1375)-4}" y="11" font-size="11" fill="#ED1165" text-anchor="end" font-weight="700">Selic 13,75%</text>`;
-  b.renda.forEach((r,i)=>{const y=24+i*rh;s+=`<text x="${l-8}" y="${y+13}" font-size="12.5" text-anchor="end" fill="#000D3B" font-weight="${r.tot?700:400}">${r.lab}</text><rect x="${l}" y="${y+3}" width="${X(r.v)-l}" height="14" fill="${r.tot?'#000D3B':'#3D8EC9'}"/><text x="${X(r.v)+6}" y="${y+14}" font-size="12" fill="#000D3B" font-weight="600">${nf(100*r.v,1)}%${r.n<15?' *':''}</text>`});
+  let s=`<line x1="${X(.1375)}" x2="${X(.1375)}" y1="12" y2="${H-6}" stroke="#EC5C9C" stroke-dasharray="3 3"/><text x="${X(.1375)-4}" y="11" font-size="11" fill="#EC5C9C" text-anchor="end" font-weight="700">Selic 13,75%</text>`;
+  b.renda.forEach((r,i)=>{const y=24+i*rh;s+=`<text x="${l-8}" y="${y+13}" font-size="12.5" text-anchor="end" fill="#141414" font-weight="${r.tot?700:400}">${r.lab}</text><rect x="${l}" y="${y+3}" width="${X(r.v)-l}" height="14" fill="${r.tot?'#141414':'#3B6EA5'}"/><text x="${X(r.v)+6}" y="${y+14}" font-size="12" fill="#141414" font-weight="600">${nf(100*r.v,1)}%${r.n<15?' *':''}</text>`});
   return `<svg class="chart" style="max-width:440px" viewBox="0 0 ${W} ${H}" role="img" aria-label="Renda bruta do aluguel por tipologia">${s}</svg>`}
-function corM2(v,lo,hi){const p=['#E8F4FB','#C7E5F7','#74BEEA','#3D8EC9','#1F4C8C','#000D3B'];if(v==null)return '#fff';const i=Math.max(0,Math.min(5,Math.floor((v-lo)/(hi-lo)*6)));return p[i]}
+function corM2(v,lo,hi){const p=['#E3EDF6','#BFD9F2','#7FB0DD','#3B6EA5','#3A3733','#141414'];if(v==null)return '#fff';const i=Math.max(0,Math.min(5,Math.floor((v-lo)/(hi-lo)*6)));return p[i]}
 // ---------------- tabelas ordenáveis ----------------
 function sortable(tbl,rows,cols,render,initial){let key=initial[0],dir=initial[1];
   function draw(){const r=[...rows].sort((a,b)=>{const x=a[key],y=b[key];if(x==null)return 1;if(y==null)return -1;return (typeof x==='string'?x.localeCompare(y,'pt-BR',{numeric:true}):x-y)*dir});
@@ -261,7 +306,7 @@ function kpiBand(b){const k=[['À venda',nf(b.n),`${un(b)}, em ${nf(b.anuncios)}
 function visaoGeral(){const app=document.getElementById('app');
   app.innerHTML=`<div class="sec" style="margin-top:4px"><div><div class="eyebrow">Edição de ${dlong(D.edicao)}${PUBLICO?'':' · rascunho'}</div><h2 style="font-size:26px;margin-top:4px">Sete bairros, uma régua</h2>
   <p class="lead">Cada relatório lê todos os dias os anúncios públicos do bairro, agrupa os anúncios do mesmo imóvel e mede preço, oferta e quanto sai do mercado. Escolha um bairro para explorar os números ou baixe os relatórios completos em <a href="#arquivos">Arquivos</a>.</p></div></div>
-  <div class="cards7">${B.map(b=>`<a class="bcard" href="#${b.id}" style="border-top-color:${b.tipo==='casas'?'#3D8EC9':'#74BEEA'}"><h3>${b.nome}</h3><div class="r">${b.tipo} · ${esc(b.recorte.split(' · ').slice(-1)[0])}</div>
+  <div class="cards7">${B.map(b=>`<a class="bcard" href="#${b.id}" style="border-top-color:${b.tipo==='casas'?'#3B6EA5':'#7FB0DD'}"><h3>${b.nome}</h3><div class="r">${b.tipo} · ${esc(b.recorte.split(' · ').slice(-1)[0])}</div>
    <dl><div><dt>À venda</dt><dd>${nf(b.n)}</dd></div><div><dt>R$/m²</dt><dd>${nf(b.m2)}</dd></div><div><dt>Giro mensal</dt><dd>${b.giro==null?'<span class="muted" style="font-weight:500">em formação</span>':pct(b.giro)}</dd></div><div><dt>Renda bruta</dt><dd>${nf(100*b.renda[b.renda.length-1].v,1)}%</dd></div></dl>
    <div style="margin-top:10px">${sentChip(b)}</div></a>`).join('')}</div>
   <div class="sec"><h2>Preço do metro quadrado</h2><span class="s">Clique num bairro para abrir · azul claro = apartamentos · azul forte = casas</span></div>
@@ -288,7 +333,7 @@ function bairro(b){const app=document.getElementById('app');const casa=b.tipo===
   ${kpiBand(b)}
   ${!PUBLICO&&b.alertas.length?`<div class="box" style="margin-top:12px"><b>Sentinela.</b> ${b.alertas.map(a=>esc(alertaTxt(a.msg))).join('; ')}.</div>`:''}
   <div class="sec"><h2>${b.hist?'Preço e oferta ao longo do tempo':'Oferta por faixa de preço'}</h2><span class="s">${b.hist?'Passe o mouse para ver cada dia':'A série diária começa a se formar a partir desta leitura'}</span></div>
-  ${b.hist?`<div class="card"><div class="legend"><span><i class="sw" style="background:#C7E5F7"></i>${un(b)} à venda no dia (eixo esquerdo)</span><span><i class="sw" style="background:#000D3B;height:3px"></i>R$/m² mediano do que está à venda (eixo direito)</span></div>${serieChart(b)}
+  ${b.hist?`<div class="card"><div class="legend"><span><i class="sw" style="background:#BFD9F2"></i>${un(b)} à venda no dia (eixo esquerdo)</span><span><i class="sw" style="background:#141414;height:3px"></i>R$/m² mediano do que está à venda (eixo direito)</span></div>${serieChart(b)}
    <p class="small muted" style="margin:6px 0 0">A mediana também muda com a troca do que está à venda: não é valorização ${casa?'das mesmas casas':'dos mesmos apartamentos'}.</p></div>`
    :`<div class="card tw"><table><thead><tr><th>Faixa (R$)</th><th>À venda</th><th>Parte</th><th>R$/m²</th><th>Área</th></tr></thead><tbody>${b.faixas.map(f=>`<tr><td>${f.lab}</td><td>${f.n}</td><td><span class="bar" style="width:${Math.round(80*f.n/b.n)}px"></span>${pct(f.n/b.n)}</td><td>${nf(f.m2)}</td><td>${nf(f.area)} m²</td></tr>`).join('')}</tbody></table></div>`}
   <div class="sec"><h2>Onde está o preço</h2><span class="s">Por ${casa?'quadra':'endereço'} · clique no título da coluna para ordenar</span></div>
@@ -304,7 +349,7 @@ function bairro(b){const app=document.getElementById('app');const casa=b.tipo===
   <div class="grid" style="align-items:start">
    <div class="card tw"><table><thead><tr><th>Faixa (R$)</th><th>Estoque</th><th>Saídas/mês</th><th>Meses</th><th>m² à venda</th><th>m² que saiu</th></tr></thead><tbody>${b.faixas.map(f=>`<tr><td>${f.lab}</td><td>${nf(f.est)}</td><td>${nf(f.pm,1)}</td><td>${nf(f.meses,1)}</td><td>${nf(f.m2)}</td><td>${nf(f.m2s)}${f.saidas!=null&&f.saidas<5?' *':''}</td></tr>`).join('')}</tbody></table>
     <p class="small muted" style="margin:6px 0 0">Meses = estoque ÷ saídas por mês.${b.faixas.some(f=>f.saidas!=null&&f.saidas<5)?' * menos de 5 saídas: só indicação.':''}</p></div>
-   <div class="card"><div class="legend"><span><i class="sw" style="background:#3D8EC9"></i>entraram</span><span><i class="sw" style="background:#000D3B"></i>saíram de vez</span></div>${fluxoChart(b)}
+   <div class="card"><div class="legend"><span><i class="sw" style="background:#3B6EA5"></i>entraram</span><span><i class="sw" style="background:#141414"></i>saíram de vez</span></div>${fluxoChart(b)}
     <p class="small" style="margin:6px 0 0">No período entraram <b>${b.entradas}</b> e saíram de vez <b>${b.saidas}</b> ${un(b)}. ${b.precos?`Dos ${b.precos.n} anúncios acompanhados desde ${dbr(b.precos.base)}, ${b.precos.baixaram} baixaram e ${b.precos.subiram} subiram o preço.`:''}</p></div>
   </div>`:''}
   <div class="sec"><h2>Renda de aluguel</h2><span class="s">${b.n_aluguel} anúncios de aluguel × ${b.n_venda} de venda · todos os preços</span></div>
@@ -318,7 +363,7 @@ function bairro(b){const app=document.getElementById('app');const casa=b.tipo===
   const t=document.getElementById('tq');let g='Todos';
   const rows=()=>b.quadras.filter(q=>g==='Todos'||q.grp===g).map(q=>({lab:q.lab,grp:q.grp,n:q.n,m2:q.m2}));
   const T=sortable(t,rows(),[['lab',casa?'Quadra':'Endereço'],['grp',casa?'Tipo':b.regiao==='Águas Claras'?'Lado':'Linha'],['n','À venda'],['m2','R$/m²']],
-    r=>`<tr${r.n<3?' style="color:#8A93A6"':''}><td${r.n<3?' style="color:#8A93A6;font-weight:500"':''}>${esc(r.lab)}</td><td>${esc(r.grp||'')}</td><td><span class="bar" style="background:#C7E5F7;width:${Math.round(50*r.n/nmaxQ)}px"></span>${r.n}</td><td><span class="sw" style="background:${corM2(r.m2,lo,hi)};border:1px solid #D6DCE6;margin-right:6px;vertical-align:-1px"></span>${nf(r.m2)}</td></tr>`,['m2',-1]);
+    r=>`<tr${r.n<3?' style="color:#8C857A"':''}><td${r.n<3?' style="color:#8C857A;font-weight:500"':''}>${esc(r.lab)}</td><td>${esc(r.grp||'')}</td><td><span class="bar" style="background:#BFD9F2;width:${Math.round(50*r.n/nmaxQ)}px"></span>${r.n}</td><td><span class="sw" style="background:${corM2(r.m2,lo,hi)};border:1px solid #DDD3C2;margin-right:6px;vertical-align:-1px"></span>${nf(r.m2)}</td></tr>`,['m2',-1]);
   document.querySelectorAll('#fq button').forEach(bt=>bt.onclick=()=>{g=bt.dataset.g;document.querySelectorAll('#fq button').forEach(x=>x.setAttribute('aria-pressed',x===bt));T.redraw(rows())});
   bindSerie(b);
   const f=document.getElementById('fluxo');if(f)f.querySelectorAll('.ft').forEach(x=>{x.addEventListener('mousemove',e=>showTip(e,x.dataset.t));x.addEventListener('mouseleave',hideTip)});
@@ -333,7 +378,7 @@ function arquivos(){const app=document.getElementById('app');
    ${GRUPOS.map(([gn,ids])=>`<div class="eyebrow" style="margin-top:16px">${gn}</div>`+ids.map(id=>{const b=BY[id];return `<div class="arq"><img src="img/${b.id}-p1.jpg" alt="" loading="lazy"><div><h3>${b.nome} — ${b.tipo}</h3><div class="small muted">${esc(b.recorte)} · ${dlong(b.dia)} · PDF</div><div class="msg" id="ma-${b.id}" role="status"></div></div>
     <div class="acoes" style="margin:0"><button class="btn pri" data-pdf="${b.id}">Baixar PDF</button><a class="btn sec" href="#${b.id}">Explorar</a></div></div>`}).join('')).join('')}</div>`;
   app.querySelectorAll('[data-pdf]').forEach(bt=>{const b=BY[bt.dataset.pdf];bt.onclick=()=>salvar(b.pdf.split('/').pop(),()=>pdfBlob(b),document.getElementById('ma-'+b.id))});
-    document.getElementById('ball').onclick=()=>salvar(`Estudos_de_Mercado_61_${D.edicao}.zip`,async()=>{const z=new JSZip();for(const b of B){z.file(b.pdf.split('/').pop(),await pdfBlob(b))}return z.generateAsync({type:'blob'})},document.getElementById('mall'))}
+    document.getElementById('ball').onclick=()=>salvar(`Pulso_61_${D.edicao}.zip`,async()=>{const z=new JSZip();for(const b of B){z.file(b.pdf.split('/').pop(),await pdfBlob(b))}return z.generateAsync({type:'blob'})},document.getElementById('mall'))}
 const dlg=document.getElementById('dlg');function abrir(src){document.getElementById('dlgimg').src=src;dlg.showModal()}
 document.getElementById('dlgx').onclick=()=>dlg.close();dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
 function route(){const h=(location.hash||'').slice(1)||'visao-geral';const cur=BY[h]?h:(h==='arquivos'?'arquivos':'visao-geral');nav(cur);hideTip();
@@ -342,7 +387,7 @@ function route(){const h=(location.hash||'').slice(1)||'visao-geral';const cur=B
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
-/* Estudos de Mercado 61 — camada pública: leitura do mês, mapa de quadras, vizinhos e método. */
+/* Pulso 61 — camada pública: leitura do mês, mapa de quadras, vizinhos e método. */
 const SELIC = {taxa:0.1375, fonte:'Copom, 16/09/2026'};
 const _bairro = bairro, _visao = visaoGeral;
 function medReg(b){const o=B.filter(x=>x.regiao===b.regiao&&x.tipo===b.tipo);return o.reduce((a,x)=>a+x.m2,0)/o.length}
@@ -370,13 +415,13 @@ function leitura(b){
 function tilesMapa(b){
   const grps=[...new Set(b.quadras.map(q=>q.grp))].sort((a,c)=>String(a).localeCompare(String(c),'pt-BR',{numeric:true}));
   const v=b.quadras.filter(q=>q.m2&&q.n>=2).map(q=>q.m2).sort((a,c)=>a-c);const lo=v[Math.floor(v.length*.05)],hi=v[Math.floor(v.length*.95)];
-  const pal=['#E8F4FB','#C7E5F7','#74BEEA','#3D8EC9','#1F4C8C','#000D3B'];
+  const pal=['#E3EDF6','#BFD9F2','#7FB0DD','#3B6EA5','#3A3733','#141414'];
   const ci=m=>Math.max(0,Math.min(5,Math.floor((m-lo)/(hi-lo||1)*6)));
   let h='';
   grps.forEach(g=>{let qs=b.quadras.filter(q=>q.grp===g);
     if(b.regiao==='Águas Claras')qs=qs.sort((a,c)=>c.n-a.n).slice(0,18);else qs=qs.sort((a,c)=>a.lab.localeCompare(c.lab,'pt-BR',{numeric:true}));
     h+=`<div class="tg"><div class="tgl">${esc(g||'')}</div><div class="tgg">${qs.map(q=>{const i=q.m2?ci(q.m2):-1;const dark=i>=3&&q.n>=3;
-      return `<button class="tl${q.n<3?' low':''}" style="background:${i<0?'#fff':pal[i]};color:${dark?'#fff':'#000D3B'}" data-t="${esc(`${q.lab}${b.regiao==='Águas Claras'?' ('+g+')':''}: ${q.n} ${un(b)} · R$ ${nf(q.m2)}/m²`)}"><span class="tn">${esc(q.lab.replace(/^(SQS|SQN|SQSW|SQNW) /,''))}</span><span class="tv">${q.m2?mil(q.m2).replace(' mil',''):'–'}</span><span class="tc">${q.n}</span></button>`}).join('')}</div>
+      return `<button class="tl${q.n<3?' low':''}" style="background:${i<0?'#fff':pal[i]};color:${dark?'#fff':'#141414'}" data-t="${esc(`${q.lab}${b.regiao==='Águas Claras'?' ('+g+')':''}: ${q.n} ${un(b)} · R$ ${nf(q.m2)}/m²`)}"><span class="tn">${esc(q.lab.replace(/^(SQS|SQN|SQSW|SQNW) /,''))}</span><span class="tv">${q.m2?mil(q.m2).replace(' mil',''):'–'}</span><span class="tc">${q.n}</span></button>`}).join('')}</div>
       ${b.regiao==='Águas Claras'&&b.quadras.filter(q=>q.grp===g).length>18?`<div class="small muted">Os 18 endereços com mais oferta.</div>`:''}</div>`});
   const edges=[...Array(7)].map((_,k)=>lo+(hi-lo)*k/6);
   h+=`<div class="leg">${pal.map((c,k)=>`<span><i style="background:${c}"></i>${k===0?'até '+mil(edges[1]):k===5?mil(edges[5])+'+':mil(edges[k])+'–'+mil(edges[k+1]).replace(' mil','')}</span>`).join('')}</div>
@@ -404,10 +449,10 @@ visaoGeral = function(){
   const pp=B.filter(b=>b.regiao==='Plano Piloto');
   const caro=[...B].sort((a,c)=>c.m2-a.m2)[0], giro=[...B].filter(b=>b.giro).sort((a,c)=>c.giro-a.giro)[0], renda=[...B].sort((a,c)=>c.renda.at(-1).v-a.renda.at(-1).v)[0], lento=[...B].filter(b=>b.meses).sort((a,c)=>c.meses-a.meses)[0];
   const tot=B.reduce((a,b)=>a+b.n,0);
-  first.outerHTML=`<section class="hero"><div><div class="eyebrow" style="color:#74BEEA">Inteligência de Mercado 61 · edição de ${dlong(D.edicao)}</div>
-   <h2>O que o mercado de Brasília está pedindo, vendendo e alugando, bairro a bairro.</h2>
-   <p>Lemos todos os dias os anúncios públicos de sete bairros de referência, agrupamos os anúncios do mesmo imóvel e medimos preço, oferta, liquidez e renda de aluguel. São ${nf(tot)} imóveis acompanhados nesta edição.</p>
-   <div class="acoes"><a class="btn hb" href="#${caro.id}">Explorar os bairros</a><a class="btn hb2" href="#arquivos">Baixar os relatórios</a></div></div></section>
+  first.outerHTML=`<section class="hero"><div><div class="eyebrow">Pulso 61 · edição de ${dlong(D.edicao)}</div>
+   <h2>Brasília tem pulso.</h2><p class="ser">O que o DF está vendendo, alugando e pedindo, bairro a bairro.</p>
+   <p>Lemos todos os dias os anúncios públicos de sete bairros de referência, agrupamos os anúncios do mesmo imóvel e medimos preço, oferta, liquidez e renda de aluguel. São ${nf(tot)} imóveis acompanhados nesta edição. Acesse quando quiser; todo mês tem relatório novo em PDF.</p>
+   <div class="acoes"><a class="btn hb" href="#${caro.id}">Explorar os bairros</a><a class="btn hb2" href="#arquivos">Baixar os relatórios</a></div></div><img class="ceu" src="/img/ceu.svg" alt=""></section>
    <div class="sec"><h2>Destaques da edição</h2><span class="s">Cada bairro tem o seu recorte; veja o método</span></div>
    <div class="dest">
     <a href="#${caro.id}"><span class="dl">Metro quadrado mais caro</span><span class="dv">R$ ${nf(caro.m2)}</span><span class="dd">${caro.nome}, ${caro.tipo}</span></a>
@@ -425,7 +470,7 @@ function metodo(){document.getElementById('app').innerHTML=`<div class="sec" sty
   <h3>Controle de qualidade</h3><p>Antes de cada edição, excluímos imóveis com área ou preço incompatíveis com o bairro, lançamentos com preço "a partir de" e valores muito distantes da mediana. Amostras pequenas aparecem marcadas como indicativas.</p></div>
  <div class="card prosa"><h3>Recorte de cada estudo</h3><table><thead><tr><th>Bairro</th><th>Recorte</th></tr></thead><tbody>${B.map(b=>`<tr><td>${b.nome}</td><td style="white-space:normal;text-align:left">${esc(b.recorte)}</td></tr>`).join('')}</tbody></table>
   <h3 style="margin-top:18px">Calendário</h3><p>Edições mensais, com edições especiais trimestrais, semestrais e anuais. Com mais meses de leitura, os indicadores passam a usar média móvel de 3 meses para apartamentos e de 6 meses para casas.</p>
-  <h3>Uso</h3><p>Os estudos podem ser citados com a fonte "Estudos de Mercado 61 · 61 Imóveis". Não constituem avaliação de imóvel nem recomendação de investimento.</p></div></div>`}
+  <h3>Uso</h3><p>Os estudos podem ser citados com a fonte "Pulso 61 · 61 Imóveis". Não constituem avaliação de imóvel nem recomendação de investimento.</p></div></div>`}
 function nav(cur){let h=`<a href="#visao-geral" ${cur==='visao-geral'?'aria-current="page"':''}>Visão geral</a><span class="sep"></span>`;
   GRUPOS.forEach(([g,ids])=>{ids.forEach(id=>h+=`<a href="#${id}" ${cur===id?'aria-current="page"':''}>${BY[id].nome}</a>`);h+='<span class="sep"></span>'});
   h+=`<a href="#metodo" ${cur==='metodo'?'aria-current="page"':''}>Método</a><a href="#arquivos" ${cur==='arquivos'?'aria-current="page"':''}>Relatórios em PDF</a>`;document.getElementById('nav').innerHTML=h;
