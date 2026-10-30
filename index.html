@@ -435,7 +435,6 @@ function vizinhosTab(b){const o=B.filter(x=>x.regiao===b.regiao||(b.regiao==='La
 bairro = function(b){
   _bairro(b);
   const band=document.querySelector('.band');
-  band.insertAdjacentHTML('afterend',`<div class="leitura"><div class="eyebrow">Leitura do mês</div><ul>${leitura(b).map(x=>`<li>${x}</li>`).join('')}</ul></div>`);
   const fq=document.getElementById('fq');const grid=fq.closest('.grid');
   grid.insertAdjacentHTML('beforebegin',`<div class="card" style="margin-bottom:16px">${tilesMapa(b)}</div>`);
   document.querySelectorAll('.tl').forEach(t=>{t.addEventListener('mousemove',e=>showTip(e,t.dataset.t));t.addEventListener('mouseleave',hideTip);t.addEventListener('focus',()=>{});});
