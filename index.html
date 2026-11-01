@@ -195,6 +195,11 @@ footer b{color:#141414}
 .arq .btn{align-self:center;height:auto}
 .arq>div:last-child{display:flex;gap:8px;align-items:center}
 @media (max-width:860px){.hero{padding:26px 20px 0}.hero h2{font-size:42px;letter-spacing:-1.5px}.hero p.ser{font-size:26px}.hero img.ceu{width:calc(100% + 40px);margin:18px -20px 0}.ed{display:none}.wm{font-size:24px}.topin img{height:28px}}
+.morar61{background:#BFD9F2;color:#141414;border-top:2px solid #141414}
+.morar61 .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:34px;padding-bottom:34px;flex-wrap:wrap}
+.morar61 h2{font-size:32px;line-height:1.05;margin-top:6px}
+.morar61 p{margin:8px 0 0;max-width:620px}
+.morar61 .btn.hb{background:#141414;color:#FFC20E}
 .vender61{background:#ED1165;color:#FBF8F2;border-top:2px solid #141414}
 .vender61 .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:34px;padding-bottom:34px;flex-wrap:wrap}
 .vender61 .eyebrow{color:#FBF8F2;opacity:.85}
@@ -212,6 +217,7 @@ footer b{color:#141414}
 </div></header>
 <nav class="bairros" aria-label="Bairros"><div class="wrap" id="nav"></div></nav>
 <main><div class="wrap" id="app"></div></main>
+<section class="morar61"><div class="wrap"><div><div class="eyebrow">Bairros 61</div><h2>Vai morar em Brasília? <span class="ser61">Conheça cada bairro por dentro.</span></h2><p>História, quem mora, escolas, comércio, árvores, aves e trânsito. Sem preço: só o dia a dia.</p></div><a class="btn hb" href="/bairros/">Ver os guias dos bairros →</a></div></section>
 <section class="vender61"><div class="wrap"><div><div class="eyebrow">61 Imóveis</div><h2>Vai vender o seu imóvel? <span class="ser61">A 61 cuida dele com você.</span></h2></div><a class="btn hb" href="/vender">Quero vender com a 61 →</a></div></section>
 <footer><div class="wrap"><b>Pulso 61</b> · 61 Imóveis. Leitura diária de páginas públicas de anúncios; preços pedidos, não de fechamento. Números de imóveis (anúncios do mesmo imóvel agrupados). Uso permitido com citação da fonte. Estudos para orientação; não constituem avaliação nem recomendação de investimento.</div></footer>
 <div class="tip" id="tip"></div>
@@ -337,7 +343,7 @@ function bairro(b){const app=document.getElementById('app');const casa=b.tipo===
   app.innerHTML=`<div style="display:flex;gap:14px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px">
    <div><div class="eyebrow">${b.regiao} · ${dlong(b.dia)}</div><h2 style="font-size:30px;letter-spacing:-.8px;margin-top:2px">${b.nome} <span style="font-weight:600;color:var(--azul-esc)">— ${b.tipo} à venda</span></h2>
    <div class="muted small">${esc(b.recorte)} · ${b.hist?`leitura diária de ${dbr(b.inicio)} a ${dbr(b.dia)}`:`primeira leitura em ${dbr(b.dia)}`}</div></div>
-   <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${sentChip(b)}<button class="btn pri" id="bpdf">Baixar relatório (PDF)</button></div></div>
+   <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${sentChip(b)}<a class="btn" style="background:#FBF8F2;color:#141414;border:2px solid #141414" href="/bairros/${b.id}">Como é morar aqui →</a><button class="btn pri" id="bpdf">Baixar relatório (PDF)</button></div></div>
   <div class="msg" id="m1" role="status" style="text-align:right;margin:-8px 0 8px"></div>
   ${kpiBand(b)}
   ${!PUBLICO&&b.alertas.length?`<div class="box" style="margin-top:12px"><b>Sentinela.</b> ${b.alertas.map(a=>esc(alertaTxt(a.msg))).join('; ')}.</div>`:''}
@@ -481,7 +487,7 @@ function metodo(){document.getElementById('app').innerHTML=`<div class="sec" sty
   <h3>Uso</h3><p>Os estudos podem ser citados com a fonte "Pulso 61 · 61 Imóveis". Não constituem avaliação de imóvel nem recomendação de investimento.</p></div></div>`}
 function nav(cur){let h=`<a href="#visao-geral" ${cur==='visao-geral'?'aria-current="page"':''}>Visão geral</a><span class="sep"></span>`;
   GRUPOS.forEach(([g,ids])=>{ids.forEach(id=>h+=`<a href="#${id}" ${cur===id?'aria-current="page"':''}>${BY[id].nome}</a>`);h+='<span class="sep"></span>'});
-  h+=`<a href="#metodo" ${cur==='metodo'?'aria-current="page"':''}>Método</a><a href="#arquivos" ${cur==='arquivos'?'aria-current="page"':''}>Relatórios em PDF</a>`;document.getElementById('nav').innerHTML=h;
+  h+=`<a href="#metodo" ${cur==='metodo'?'aria-current="page"':''}>Método</a><a href="#arquivos" ${cur==='arquivos'?'aria-current="page"':''}>Relatórios em PDF</a><span class="sep"></span><a href="/bairros/">Como é morar nos bairros</a>`;document.getElementById('nav').innerHTML=h;
   const a=document.querySelector('nav.bairros a[aria-current]');if(a)a.scrollIntoView({block:'nearest',inline:'nearest'})}
 function route(){const h=(location.hash||'').slice(1)||'visao-geral';const cur=BY[h]?h:(['arquivos','metodo'].includes(h)?h:'visao-geral');nav(cur);hideTip();
   if(BY[cur])bairro(BY[cur]);else if(cur==='arquivos')arquivos();else if(cur==='metodo')metodo();else visaoGeral();window.scrollTo(0,0)}
