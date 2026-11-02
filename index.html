@@ -218,7 +218,7 @@ footer b{color:#141414}
 <nav class="bairros" aria-label="Bairros"><div class="wrap" id="nav"></div></nav>
 <main><div class="wrap" id="app"></div></main>
 <section class="morar61"><div class="wrap"><div><div class="eyebrow">Bairros 61</div><h2>Vai morar em Brasília? <span class="ser61">Conheça cada bairro por dentro.</span></h2><p>História, quem mora, escolas, comércio, árvores, aves e trânsito. Sem preço: só o dia a dia.</p></div><a class="btn hb" href="/bairros/">Ver os guias dos bairros →</a></div></section>
-<section class="vender61"><div class="wrap"><div><div class="eyebrow">61 Imóveis</div><h2>Vai vender o seu imóvel? <span class="ser61">A 61 cuida dele com você.</span></h2></div><a class="btn hb" href="/vender">Quero vender com a 61 →</a></div></section>
+<section class="vender61"><div class="wrap"><div><div class="eyebrow">61 Imóveis</div><h2>Vai vender o seu imóvel? <span class="ser61">A 61 cuida dele com você.</span></h2></div><a class="btn hb" id="vend61" href="/venda?de=pulso">Quero vender com a 61 →</a></div></section>
 <footer><div class="wrap"><b>Pulso 61</b> · 61 Imóveis. Leitura diária de páginas públicas de anúncios; preços pedidos, não de fechamento. Números de imóveis (anúncios do mesmo imóvel agrupados). Uso permitido com citação da fonte. Estudos para orientação; não constituem avaliação nem recomendação de investimento.</div></footer>
 <div class="tip" id="tip"></div>
 <dialog id="dlg"><button class="btn sec fechar" id="dlgx">Fechar</button><img id="dlgimg" alt=""></dialog>
@@ -489,7 +489,7 @@ function nav(cur){let h=`<a href="#visao-geral" ${cur==='visao-geral'?'aria-curr
   GRUPOS.forEach(([g,ids])=>{ids.forEach(id=>h+=`<a href="#${id}" ${cur===id?'aria-current="page"':''}>${BY[id].nome}</a>`);h+='<span class="sep"></span>'});
   h+=`<a href="#metodo" ${cur==='metodo'?'aria-current="page"':''}>Método</a><a href="#arquivos" ${cur==='arquivos'?'aria-current="page"':''}>Relatórios em PDF</a><span class="sep"></span><a href="/bairros/">Como é morar nos bairros</a>`;document.getElementById('nav').innerHTML=h;
   const a=document.querySelector('nav.bairros a[aria-current]');if(a)a.scrollIntoView({block:'nearest',inline:'nearest'})}
-function route(){const h=(location.hash||'').slice(1)||'visao-geral';const cur=BY[h]?h:(['arquivos','metodo'].includes(h)?h:'visao-geral');nav(cur);hideTip();
+function route(){const h=(location.hash||'').slice(1)||'visao-geral';try{const _v=document.getElementById('vend61');if(_v){const _c=(location.hash||'').slice(1);_v.href=(typeof BY!=='undefined'&&BY[_c])?'/venda?bairro='+_c+'&de=pulso-'+_c:'/venda?de=pulso'}}catch(e){}const cur=BY[h]?h:(['arquivos','metodo'].includes(h)?h:'visao-geral');nav(cur);hideTip();
   if(BY[cur])bairro(BY[cur]);else if(cur==='arquivos')arquivos();else if(cur==='metodo')metodo();else visaoGeral();window.scrollTo(0,0)}
 addEventListener('hashchange',route);route();
 
