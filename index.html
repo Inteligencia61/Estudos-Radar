@@ -206,6 +206,11 @@ footer b{color:#141414}
 .vender61 h2{color:#FBF8F2;font-size:32px;line-height:1.05;margin-top:6px}
 .ser61{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:0}
 .vender61 .btn.hb{background:#141414;color:#FFC20E}
+.vtop{font-weight:700;font-size:13px;color:#fff;background:#ED1165;padding:7px 12px;border-radius:99px;text-decoration:none;white-space:nowrap}.vtop:hover{background:#C70E55}
+.btn.v61{background:#ED1165;color:#fff}.btn.v61:hover{background:#C70E55}
+.vstrip{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:#FBF8F2;border:1px solid var(--linha);border-left:6px solid #ED1165;border-radius:6px;padding:18px 22px;margin:26px 0 6px}
+.vstrip h3{margin:0 0 4px;font-size:20px;letter-spacing:-.3px}.vstrip p{margin:0;color:#5A554D;font-size:14.5px}
+@media(max-width:640px){.topin .ed{display:none}.topin{gap:10px;padding:12px 14px}.topin img{height:30px}.vtop{font-size:11.5px;padding:6px 10px;white-space:normal;text-align:center;line-height:1.2;max-width:140px}}
 </style>
 </head>
 <body>
@@ -213,13 +218,14 @@ footer b{color:#141414}
 <header class="top"><div class="topin">
   <a class="marca" href="#visao-geral" aria-label="Pulso 61, início"><span class="wm">PULSO</span><span class="wm61">61</span></a>
   <div class="ed">Edição de 29 out 2026</div>
+  <a class="vtop" id="vtop" href="/venda?de=pulso-topo">Venda com a 61</a>
   <img src="/img/logo_pulso.png" alt="61 Imóveis">
 </div></header>
 <nav class="bairros" aria-label="Bairros"><div class="wrap" id="nav"></div></nav>
 <main><div class="wrap" id="app"></div></main>
 <section class="morar61"><div class="wrap"><div><div class="eyebrow">Bairros 61</div><h2>Vai morar em Brasília? <span class="ser61">Conheça cada bairro por dentro.</span></h2><p>História, quem mora, escolas, comércio, árvores, aves e trânsito. Sem preço: só o dia a dia.</p></div><a class="btn hb" href="/bairros/">Ver os guias dos bairros →</a></div></section>
-<section class="vender61"><div class="wrap"><div><div class="eyebrow">61 Imóveis</div><h2>Vai vender o seu imóvel? <span class="ser61">A 61 cuida dele com você.</span></h2></div><a class="btn hb" id="vend61" href="/venda?de=pulso">Quero vender com a 61 →</a></div></section>
-<footer><div class="wrap"><b>Pulso 61</b> · 61 Imóveis. Leitura diária de páginas públicas de anúncios; preços pedidos, não de fechamento. Números de imóveis (anúncios do mesmo imóvel agrupados). Uso permitido com citação da fonte. Estudos para orientação; não constituem avaliação nem recomendação de investimento.</div></footer>
+<section class="vender61"><div class="wrap"><div><div class="eyebrow">61 Imóveis</div><h2 id="vendh">Vai vender o seu imóvel? <span class="ser61">A 61 cuida dele com você.</span></h2></div><a class="btn hb" id="vend61" href="/venda?de=pulso">Venda com a 61 →</a></div></section>
+<footer><div class="wrap"><b>Pulso 61</b> · 61 Imóveis. Leitura diária de páginas públicas de anúncios; preços pedidos, não de fechamento. Números de imóveis (anúncios do mesmo imóvel agrupados). Uso permitido com citação da fonte. Estudos para orientação; não constituem avaliação nem recomendação de investimento. <a id="vfoot" href="/venda?de=pulso-rodape" style="color:inherit;font-weight:700">Venda com a 61</a>.</div></footer>
 <div class="tip" id="tip"></div>
 <dialog id="dlg"><button class="btn sec fechar" id="dlgx">Fechar</button><img id="dlgimg" alt=""></dialog>
 <script>
@@ -235,6 +241,12 @@ const un=b=>b.tipo==='casas'?'casas':'imóveis';
 // faixa de azulejos
 (()=>{const p=['#FFC20E','#EC5C9C','#8B5CC4','#FBF8F2','#BFD9F2','#FFC20E','#EC5C9C','#8B5CC4'];let s=7,h='';for(let i=0;i<140;i++){s=(s*9301+49297)%233280;h+=`<i style="background:${p[s%8]}"></i>`}document.getElementById('tiles').innerHTML=h})();
 // navegação
+const PREP={'asa-sul':'na','asa-norte':'na','sudoeste':'no','noroeste':'no','lago-sul':'no','lago-norte':'no','aguas-claras':'em'};
+function vtxt(id){return BY[id]?`Venda ${PREP[id]||'em'} ${BY[id].nome} com a 61`:'Venda com a 61'}
+function vurl(id,de){return BY[id]?`/venda?bairro=${id}&de=pulso-${id}-${de}`:`/venda?de=pulso-${de}`}
+function vlinks(id){const set=(e,de,t)=>{const x=document.getElementById(e);if(x){x.href=vurl(id,de);if(t)x.textContent=t}};
+ set('vtop','topo',vtxt(id));set('vend61','faixa',vtxt(id)+' →');set('vfoot','rodape',vtxt(id));
+ const h=document.getElementById('vendh');if(h)h.innerHTML=BY[id]?`Tem um imóvel ${PREP[id]} ${BY[id].nome}? <span class="ser61">A 61 cuida dele com você.</span>`:'Vai vender o seu imóvel? <span class="ser61">A 61 cuida dele com você.</span>'}
 const GRUPOS=[['Plano Piloto',['asa-sul','asa-norte','sudoeste','noroeste']],['Lagos',['lago-sul','lago-norte']],['Águas Claras',['aguas-claras']]];
 function nav(cur){let h=`<a href="#visao-geral" ${cur==='visao-geral'?'aria-current="page"':''}>Visão geral</a><span class="sep"></span>`;
   GRUPOS.forEach(([g,ids],i)=>{ids.forEach(id=>h+=`<a href="#${id}" ${cur===id?'aria-current="page"':''}>${BY[id].nome}</a>`);h+='<span class="sep"></span>'});
@@ -343,7 +355,7 @@ function bairro(b){const app=document.getElementById('app');const casa=b.tipo===
   app.innerHTML=`<div style="display:flex;gap:14px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px">
    <div><div class="eyebrow">${b.regiao} · ${dlong(b.dia)}</div><h2 style="font-size:30px;letter-spacing:-.8px;margin-top:2px">${b.nome} <span style="font-weight:600;color:var(--azul-esc)">— ${b.tipo} à venda</span></h2>
    <div class="muted small">${esc(b.recorte)} · ${b.hist?`leitura diária de ${dbr(b.inicio)} a ${dbr(b.dia)}`:`primeira leitura em ${dbr(b.dia)}`}</div></div>
-   <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${sentChip(b)}<a class="btn" style="background:#FBF8F2;color:#141414;border:2px solid #141414" href="/bairros/${b.id}">Como é morar aqui →</a><button class="btn pri" id="bpdf">Baixar relatório (PDF)</button></div></div>
+   <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${sentChip(b)}<a class="btn" style="background:#FBF8F2;color:#141414;border:2px solid #141414" href="/bairros/${b.id}">Como é morar aqui →</a><a class="btn v61" href="${vurl(b.id,'acoes')}">${vtxt(b.id)} →</a><button class="btn pri" id="bpdf">Baixar relatório (PDF)</button></div></div>
   <div class="msg" id="m1" role="status" style="text-align:right;margin:-8px 0 8px"></div>
   ${kpiBand(b)}
   ${!PUBLICO&&b.alertas.length?`<div class="box" style="margin-top:12px"><b>Sentinela.</b> ${b.alertas.map(a=>esc(alertaTxt(a.msg))).join('; ')}.</div>`:''}
@@ -367,6 +379,7 @@ function bairro(b){const app=document.getElementById('app');const casa=b.tipo===
    <div class="card"><div class="legend"><span><i class="sw" style="background:#3B6EA5"></i>entraram</span><span><i class="sw" style="background:#141414"></i>saíram de vez</span></div>${fluxoChart(b)}
     <p class="small" style="margin:6px 0 0">No período entraram <b>${b.entradas}</b> e saíram de vez <b>${b.saidas}</b> ${un(b)}. ${b.precos?`Dos ${b.precos.n} anúncios acompanhados desde ${dbr(b.precos.base)}, ${b.precos.baixaram} baixaram e ${b.precos.subiram} subiram o preço.`:''}</p></div>
   </div>`:''}
+  <div class="vstrip"><div><h3>Tem um imóvel ${PREP[b.id]} ${esc(b.nome)}?</h3><p>Avaliação gratuita com estes números, parecer jurídico e um corretor especialista no bairro. Cuidamos do seu imóvel com carinho.</p></div><a class="btn v61" href="${vurl(b.id,'meio')}">${vtxt(b.id)} →</a></div>
   <div class="sec"><h2>Renda de aluguel</h2><span class="s">${b.n_aluguel} anúncios de aluguel × ${b.n_venda} de venda · todos os preços</span></div>
   <div class="grid g2" style="align-items:start"><div class="card">${rendaChart(b)}<p class="small muted" style="margin:6px 0 0">Aluguel mediano R$ ${nf(b.aluguel)} (${nf(b.area_aluguel)} m²). Bruto, antes de vacância, IPTU, IR e manutenção.${b.renda.some(r=>r.n<15)?' * menos de 15 anúncios: só indicação.':''}</p></div>
    <div class="card"><div class="small" style="font-weight:700;color:var(--ink);margin-bottom:8px">Oferta de venda por faixa, todos os preços</div>${(()=>{const mx=Math.max(...b.oferta.map(o=>o[1]))||1;return b.oferta.map(o=>`<div style="display:grid;grid-template-columns:110px 1fr;gap:8px;align-items:center;font-size:13px;margin:3px 0"><span style="text-align:right">${o[0]}</span><span class="num"><span class="bar" style="height:12px;width:${Math.round(220*o[1]/mx)}px"></span>${o[1]}</span></div>`).join('')})()}</div></div>
@@ -489,7 +502,7 @@ function nav(cur){let h=`<a href="#visao-geral" ${cur==='visao-geral'?'aria-curr
   GRUPOS.forEach(([g,ids])=>{ids.forEach(id=>h+=`<a href="#${id}" ${cur===id?'aria-current="page"':''}>${BY[id].nome}</a>`);h+='<span class="sep"></span>'});
   h+=`<a href="#metodo" ${cur==='metodo'?'aria-current="page"':''}>Método</a><a href="#arquivos" ${cur==='arquivos'?'aria-current="page"':''}>Relatórios em PDF</a><span class="sep"></span><a href="/bairros/">Como é morar nos bairros</a>`;document.getElementById('nav').innerHTML=h;
   const a=document.querySelector('nav.bairros a[aria-current]');if(a)a.scrollIntoView({block:'nearest',inline:'nearest'})}
-function route(){const h=(location.hash||'').slice(1)||'visao-geral';try{const _v=document.getElementById('vend61');if(_v){const _c=(location.hash||'').slice(1);_v.href=(typeof BY!=='undefined'&&BY[_c])?'/venda?bairro='+_c+'&de=pulso-'+_c:'/venda?de=pulso'}}catch(e){}const cur=BY[h]?h:(['arquivos','metodo'].includes(h)?h:'visao-geral');nav(cur);hideTip();
+function route(){const h=(location.hash||'').slice(1)||'visao-geral';try{vlinks((location.hash||'').slice(1))}catch(e){}const cur=BY[h]?h:(['arquivos','metodo'].includes(h)?h:'visao-geral');nav(cur);hideTip();
   if(BY[cur])bairro(BY[cur]);else if(cur==='arquivos')arquivos();else if(cur==='metodo')metodo();else visaoGeral();window.scrollTo(0,0)}
 addEventListener('hashchange',route);route();
 
