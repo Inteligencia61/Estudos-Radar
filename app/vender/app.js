@@ -1,4 +1,4 @@
-/* 61 — Venda com a 61 (app) · /app/vender
+/* 61 — Venda com a 61 (app) · /app/vender · TESTE v2: cadastro do imóvel em 4 passos
    Validação: a mesma da página de captação da campanha (deixe-meu-imovel/fontes/app.js).
    Envio: o mesmo mecanismo da página /venda (formsubmit.co → 61@61imoveis.com), aqui aguardando a resposta.
    Dados do Pulso 61: copiados de /venda (edição de 29/10/2026), sem alteração.
@@ -7,6 +7,7 @@
 
 // Só a cópia de revisão (artifact) troca para true: lá o navegador bloqueia o envio externo.
 const PREVIA_ARTIFACT = false;
+if (PREVIA_ARTIFACT) document.addEventListener('DOMContentLoaded', () => { const d = document.createElement('div'); d.className = 'previa-bar'; d.setAttribute('role', 'note'); d.textContent = 'Prévia de teste · o envio do cadastro está desligado nesta cópia'; document.body.prepend(d); });
 
 const WHATS = '5561998786161';
 const EMAIL_LEADS = '61@61imoveis.com';
@@ -29,8 +30,8 @@ document.querySelectorAll('[data-ev]').forEach(a => a.addEventListener('click', 
 
 // WhatsApp: só link, mensagem genérica, sem dados do formulário.
 const waBase = t => `https://wa.me/${WHATS}?text=${encodeURIComponent(t)}`;
-const WA_URL = waBase('Olá, 61! Quero vender o meu imóvel e gostaria de uma avaliação.');
-['waDuv'].forEach(id => { const a = document.getElementById(id); if (a) a.href = WA_URL; });
+const WA_URL = waBase('Olá, 61! Quero vender o meu imóvel e prefiro conversar por aqui.');
+document.querySelectorAll('.waL').forEach(a => { a.href = WA_URL; });
 
 /* ——— Seu bairro (números do Pulso) ——— */
 const chips = document.getElementById('chips');
@@ -43,20 +44,27 @@ function mostra(id, manual) {
   chips.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.id === id)));
   painel.innerHTML = `<div><small>R$/m² mediano pedido</small><b>R$ ${nf(b.m2)}</b><span>${b.tipo} à venda</span></div><div><small>À venda agora</small><b>${nf(b.n)}</b><span>${un(b)} no recorte do Pulso</span></div><div><small>Preço mediano pedido</small><b>R$ ${nf(b.valor / 1e6, 2)} mi</b><span>${nf(b.area)} m² de área mediana</span></div><div><small>Tempo de estoque</small><b>${b.meses ? nf(b.meses, 1) + ' meses' : 'em formação'}</b><span>${b.meses ? 'estoque médio ÷ saídas por mês' : 'leitura iniciada em outubro'}</span></div>`;
   document.getElementById('recorte').textContent = `Recorte ${PDE[b.nome]} ${b.nome}: ${b.recorte}.`;
-  document.getElementById('ctaBairro').textContent = `Avaliar meu imóvel ${PREP[b.nome] || 'em'} ${b.nome}`;
+  document.getElementById('ctaBairro').textContent = `Cadastrar meu imóvel ${PREP[b.nome] || 'em'} ${b.nome}`;
   const pp = document.getElementById('pPulso'); pp.href = PULSO + '#' + b.id; pp.textContent = `Ver o mercado ${PDE[b.nome]} ${b.nome} no Pulso →`;
   if (manual) ev('ver_bairro', {bairro: b.nome});
 }
 chips.innerHTML = P.map(b => `<button type="button" data-id="${b.id}" aria-pressed="false">${b.nome}</button>`).join('');
 chips.querySelectorAll('button').forEach(x => x.addEventListener('click', () => { aplica(x.dataset.id, true); ev('trocar_bairro', {bairro: x.dataset.id}); }));
 
-/* ——— Formulário: campos e validação da captação; envio real como em /venda ——— */
+/* ——— Cadastro em 4 passos: campos e validação da captação + novos campos opcionais; envio real como em /venda ——— */
 const form = document.getElementById('property-form');
 const result = document.getElementById('form-result');
-const submit = form.querySelector('[type="submit"]');
-const submitLabel = submit.innerHTML;
+const submit = document.getElementById('next');
+const back = document.getElementById('back');
+const steps = [...form.querySelectorAll('.step')];
+const marks = [...document.querySelectorAll('#cad-steps li')];
+const band = document.getElementById('cadastro');
+const LAST = steps.length - 1;
+const LABEL_NEXT = 'Continuar <span aria-hidden="true">→</span>';
+const LABEL_SEND = 'Enviar cadastro <span aria-hidden="true">→</span>';
 submit.disabled = false;
-let attempted = false;
+let current = 0;
+let attempted = [false, false, false, false];
 let sending = false;
 
 document.getElementById('ctaBairro').addEventListener('click', () => prefillRegion(bSel, true));
@@ -64,6 +72,13 @@ function prefillRegion(nome, force) {
   const region = form.elements.namedItem('region');
   if (nome && (force || !region.value.trim())) region.value = nome;
 }
+
+// Opcionais: tocar de novo no rádio marcado desmarca.
+form.querySelectorAll('fieldset[data-opt="1"] input[type="radio"]').forEach(r => {
+  r.addEventListener('pointerdown', () => { r.dataset.was = String(r.checked); });
+  r.addEventListener('click', () => { if (r.dataset.was === 'true') { r.checked = false; r.dataset.was = 'false'; } });
+});
+form.elements.namedItem('area').addEventListener('input', e => { e.target.value = e.target.value.replace(/[^\d.,]/g, '').slice(0, 7); });
 
 function errorFor(name, message) {
   document.getElementById(`${name}-error`).textContent = message;
@@ -74,21 +89,45 @@ function errorFor(name, message) {
   });
 }
 
-function validate() {
-  const value = name => form.elements.namedItem(name).value.trim();
-  const contact = value('contact');
-  const digits = contact.replace(/\D/g, '');
-  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
-  const phoneValid = /^[+\d\s().-]+$/.test(contact) && (digits.length === 10 || digits.length === 11 || ((digits.length === 12 || digits.length === 13) && digits.startsWith('55')));
-  const errors = {
-    intent: value('intent') ? '' : 'Selecione vender, alugar ou ainda decidir.',
-    name: value('name').length >= 2 ? '' : 'Informe um nome com pelo menos 2 caracteres.',
-    contact: emailValid || phoneValid ? '' : 'Informe um e-mail válido ou telefone com DDD.',
-    kind: value('kind') ? '' : 'Escolha o tipo de imóvel.',
-    region: value('region').length >= 2 ? '' : 'Informe o bairro ou a região (pelo menos 2 caracteres).'
-  };
+const value = name => { const el = form.elements.namedItem(name); return el ? String(el.value || '').trim() : ''; };
+// Mesmas regras da captação, separadas por etapa.
+function validate(step) {
+  const errors = {};
+  if (step === 0) {
+    errors.intent = value('intent') ? '' : 'Selecione vender, alugar ou ainda decidir.';
+    errors.kind = value('kind') ? '' : 'Escolha o tipo de imóvel.';
+    errors.region = value('region').length >= 2 ? '' : 'Informe o bairro ou a região (pelo menos 2 caracteres).';
+  }
+  if (step === 3) {
+    const contact = value('contact');
+    const digits = contact.replace(/\D/g, '');
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
+    const phoneValid = /^[+\d\s().-]+$/.test(contact) && (digits.length === 10 || digits.length === 11 || ((digits.length === 12 || digits.length === 13) && digits.startsWith('55')));
+    errors.name = value('name').length >= 2 ? '' : 'Informe um nome com pelo menos 2 caracteres.';
+    errors.contact = emailValid || phoneValid ? '' : 'Informe um e-mail válido ou telefone com DDD.';
+  }
   Object.entries(errors).forEach(([name, message]) => errorFor(name, message));
   return Object.keys(errors).filter(name => errors[name]);
+}
+
+function bringIntoView() {
+  const marksEl = document.getElementById('cad-steps');
+  const t = marksEl.hidden ? band : marksEl;
+  const r = t.getBoundingClientRect();
+  if (r.top < 0 || r.top > innerHeight * 0.6) t.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
+}
+
+function go(n, focus) {
+  current = n;
+  steps.forEach((s, i) => { s.hidden = i !== n; s.classList.toggle('on', i === n); });
+  marks.forEach((m, i) => {
+    m.classList.toggle('on', i === n); m.classList.toggle('done', i < n);
+    if (i === n) m.setAttribute('aria-current', 'step'); else m.removeAttribute('aria-current');
+  });
+  back.hidden = n === 0;
+  submit.innerHTML = n === LAST ? LABEL_SEND : LABEL_NEXT;
+  result.hidden = true;
+  if (focus !== false) { bringIntoView(); const h = steps[n].querySelector('h3'); if (h) h.focus({preventScroll: true}); }
 }
 
 const INTENT_LABEL = {vender: 'Vender', alugar: 'Alugar', conversar: 'Ainda decidir'};
@@ -96,8 +135,9 @@ const INTENT_LABEL = {vender: 'Vender', alugar: 'Alugar', conversar: 'Ainda deci
 function setSending(on) {
   sending = on;
   submit.disabled = on;
+  back.disabled = on;
   submit.setAttribute('aria-busy', String(on));
-  submit.innerHTML = on ? 'Enviando… <span aria-hidden="true">→</span>' : submitLabel;
+  submit.innerHTML = on ? 'Enviando… <span aria-hidden="true">→</span>' : LABEL_SEND;
 }
 
 function showResult(kind, html) {
@@ -108,20 +148,33 @@ function showResult(kind, html) {
   result.focus();
 }
 
-async function envia() {
-  const v = name => form.elements.namedItem(name).value.trim();
-  const d = {
-    'Intenção': INTENT_LABEL[v('intent')] || v('intent'),
-    'Nome': v('name'),
-    'Contato': v('contact'),
-    'Tipo': v('kind'),
-    'Bairro': v('region'),
+const ni = v => (v && v !== '-' ? v : 'não informado');
+function payload() {
+  return {
+    'Intenção': INTENT_LABEL[value('intent')] || value('intent'),
+    'Tipo': value('kind'),
+    'Bairro': value('region'),
+    'Quadra, rua ou condomínio': ni(value('address')),
+    'Área aproximada (m²)': ni(value('area')),
+    'Quartos': value('rooms') === '-' ? 'não se aplica' : ni(value('rooms')),
+    'Vagas': ni(value('parking')),
+    'Valor pretendido': ni(value('price')),
+    'Situação do imóvel': ni(value('situation')),
+    'Pendência na documentação': ni(value('docs')),
+    'O que o imóvel tem de especial': ni(value('special')),
+    'Melhor horário para contato': ni(value('besttime')),
+    'Nome': value('name'),
+    'Contato': value('contact'),
     'Origem': UTM || document.referrer || 'direto',
     'Origem interna': ORIGEM_INTERNA,
     'Página': location.href.split('?')[0].split('#')[0],
     'Data e hora': new Date().toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})
   };
-  const body = Object.assign({_subject: 'Novo proprietário pela página da 61 (app): ' + d['Nome'] + ' · ' + d['Bairro'], _template: 'table', _captcha: 'false'}, d);
+}
+
+async function envia() {
+  const d = payload();
+  const body = Object.assign({_subject: 'Novo proprietário pela página da 61 (app): ' + d['Nome'] + ' · ' + d['Bairro'] + ' · cadastro do imóvel', _template: 'table', _captcha: 'false'}, d);
   const ctrl = typeof AbortController === 'function' ? new AbortController() : null;
   const timer = ctrl ? setTimeout(() => ctrl.abort(), ENVIO_TIMEOUT_MS) : null;
   try {
@@ -142,19 +195,22 @@ async function envia() {
   }
 }
 
+back.addEventListener('click', () => { if (!sending) go(Math.max(0, current - 1)); });
+
 form.addEventListener('submit', async event => {
   event.preventDefault();
   if (sending) return; // sem envio duplicado
-  attempted = true;
+  attempted[current] = true;
   result.hidden = true;
-  const errors = validate();
+  const errors = validate(current);
   if (errors.length) {
     const first = errors[0] === 'intent' ? form.querySelector('[name="intent"]') : form.elements.namedItem(errors[0]);
     first.focus();
     return;
   }
+  if (current < LAST) { go(current + 1); return; }
   if (PREVIA_ARTIFACT) {
-    showResult('preview', '<strong>Prévia de revisão.</strong>Nesta cópia o envio fica desligado (a prévia não acessa a internet). No site publicado, este botão envia o contato para a equipe da 61. Seus dados continuam no formulário.');
+    showResult('preview', '<strong>Prévia de teste.</strong>Nesta cópia o envio fica desligado (a prévia não acessa a internet). No site publicado, este botão envia o cadastro para a equipe da 61. Seus dados continuam no formulário.');
     return;
   }
   setSending(true);
@@ -162,27 +218,31 @@ form.addEventListener('submit', async event => {
   setSending(false);
   if (ok) {
     form.reset();
-    attempted = false;
-    form.querySelectorAll('[aria-invalid]').forEach(f => f.setAttribute('aria-invalid', 'false'));
-    showResult('success', '<strong>Recebemos o seu contato.</strong>Obrigado! Um especialista da 61 vai falar com você para combinar os próximos passos e a avaliação gratuita.');
+    attempted = [false, false, false, false];
+    form.hidden = true;
+    document.getElementById('cad-steps').hidden = true;
+    const done = document.getElementById('cad-ok');
+    done.hidden = false;
+    bringIntoView();
+    done.focus({preventScroll: true});
     ev('generate_lead', {origem_interna: ORIGEM_INTERNA});
   } else {
-    showResult('error', `<strong>Não conseguimos enviar agora.</strong>Seus dados continuam no formulário: tente de novo em instantes. Se preferir, <a href="${WA_URL}" target="_blank" rel="noopener">fale com a 61 pelo WhatsApp</a> ou ligue (61) 3686-2430.`);
+    showResult('error', `<strong>Não conseguimos enviar agora.</strong>Seus dados continuam no cadastro: tente de novo em instantes. Se preferir, <a href="${WA_URL}" target="_blank" rel="noopener">fale com a 61 pelo WhatsApp</a> ou ligue (61) 3686-2430.`);
   }
 });
 
 form.addEventListener('input', () => {
-  if (attempted) validate();
+  if (attempted[current]) validate(current);
   if (!result.hidden && !sending) result.hidden = true;
 });
 form.addEventListener('change', () => {
-  if (attempted) validate();
+  if (attempted[current]) validate(current);
 });
 
 /* ——— Personalização por bairro (?bairro=slug), como em /venda ——— */
 function aplica(slug, manual) {
   const b = P.find(x => x.id === slug) || null;
-  document.getElementById('sub').textContent = b ? `Vai vender ${PREP[b.nome]} ${b.nome}? Da avaliação à escritura, a 61 cuida de cada detalhe com você.` : 'Vai vender? Da avaliação à escritura, a 61 cuida de cada detalhe com você.';
+  document.getElementById('sub').textContent = b ? `Vai vender ${PREP[b.nome]} ${b.nome}? Vender com a 61 começa pelo cadastro do seu imóvel.` : 'Vai vender? Vender com a 61 começa pelo cadastro do seu imóvel.';
   document.getElementById('eyeb').textContent = b ? `Venda com a 61 · ${b.nome}` : 'Venda com a 61 · para quem vai vender';
   document.title = b ? `Vender imóvel ${PREP[b.nome]} ${b.nome} · Cuidamos do seu imóvel com carinho · 61 Imóveis` : 'Vender imóvel em Brasília · Cuidamos do seu imóvel com carinho · 61 Imóveis';
   document.querySelectorAll('[data-noseu]').forEach(s => {
@@ -194,7 +254,7 @@ function aplica(slug, manual) {
     const hp = document.getElementById('hPulso'); hp.href = PULSO + '#' + b.id; hp.textContent = `Ver o mercado ${PDE[b.nome]} ${b.nome} no Pulso →`;
     const hb = document.getElementById('hBairros'); hb.href = SITE + 'bairros/' + b.id; hb.textContent = `Como é morar ${PREP[b.nome]} ${b.nome} →`;
     document.getElementById('lkBairros').href = SITE + 'bairros/' + b.id;
-    if (!manual) prefillRegion(b.nome, false); // só via ?bairro= na URL (ou pelo botão Avaliar meu imóvel)
+    if (!manual) prefillRegion(b.nome, false); // só via ?bairro= na URL (ou pelo botão Cadastrar meu imóvel)
   }
   mostra(b ? b.id : (P.find(x => x.nome === bSel) || P[0]).id, manual);
   if (manual) { try { const q = new URLSearchParams(location.search); b ? q.set('bairro', b.id) : q.delete('bairro'); history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : '') + location.hash); } catch (e) {} }
