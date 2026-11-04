@@ -14,7 +14,8 @@ const EMAIL_LEADS = '61@61imoveis.com';
 const SITE = 'https://estudos.inteligencia61imoveis.com.br/';
 const PULSO = SITE;
 const ENVIO_TIMEOUT_MS = 15000;
-const UTM = (() => { try { const q = new URLSearchParams(location.search); return ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'].filter(k => q.get(k)).map(k => k + '=' + q.get(k)).join(' · '); } catch (e) { return ''; } })();
+const UTM = (() => { try { const q = new URLSearchParams(location.search); const u = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'].filter(k => q.get(k)).map(k => k + '=' + q.get(k)).join(' · ');
+  if (u) return u; const s = (window.T61 && window.T61.utm) || {}; return Object.keys(s).map(k => k + '=' + s[k]).join(' · '); } catch (e) { return ''; } })(); // campanha da sessão (t61.js) se veio de /app
 const DE = (() => { try { return (new URLSearchParams(location.search).get('de') || '').replace(/[^\w\-]/g, '').slice(0, 60); } catch (e) { return ''; } })();
 const ORIGEM_INTERNA = 'app-vender' + (DE ? ' · ' + DE : '');
 
@@ -25,7 +26,7 @@ const PDE = {'Asa Sul': 'da', 'Asa Norte': 'da', 'Sudoeste': 'do', 'Noroeste': '
 
 const nf = (x, d = 0) => Number(x).toLocaleString('pt-BR', {minimumFractionDigits: d, maximumFractionDigits: d});
 // Mesmos eventos de /venda; só disparam se gtag/fbq existirem na página. Nunca com valores digitados.
-const ev = (n, p) => { try { if (window.gtag) gtag('event', n, p || {}); if (window.fbq && n === 'generate_lead') fbq('track', 'Lead'); } catch (e) {} };
+const ev = (n, p) => { try { if (window.T61 && window.T61.ev) window.T61.ev(n, p); else if (window.gtag) gtag('event', n, p || {}); if (window.fbq && n === 'generate_lead') fbq('track', 'Lead'); } catch (e) {} };
 document.querySelectorAll('[data-ev]').forEach(a => a.addEventListener('click', () => ev(a.dataset.ev)));
 
 // WhatsApp: só link, mensagem genérica, sem dados do formulário.
@@ -117,8 +118,10 @@ function bringIntoView() {
   if (r.top < 0 || r.top > innerHeight * 0.6) t.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start'});
 }
 
+const passosVistos = {0: true};
 function go(n, focus) {
   current = n;
+  if (!passosVistos[n]) { passosVistos[n] = true; ev('cadastro_passo', {passo: n + 1}); if (n === 1 && window.fbq) try { fbq('trackCustom', 'CadastroIniciado'); } catch (e) {} }
   steps.forEach((s, i) => { s.hidden = i !== n; s.classList.toggle('on', i === n); });
   marks.forEach((m, i) => {
     m.classList.toggle('on', i === n); m.classList.toggle('done', i < n);
