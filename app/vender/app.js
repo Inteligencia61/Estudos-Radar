@@ -121,7 +121,7 @@ function bringIntoView() {
 const passosVistos = {0: true};
 function go(n, focus) {
   current = n;
-  if (!passosVistos[n]) { passosVistos[n] = true; ev('cadastro_passo', {passo: n + 1}); if (n === 1 && window.fbq) try { fbq('trackCustom', 'CadastroIniciado'); } catch (e) {} }
+  if (!passosVistos[n]) { passosVistos[n] = true; ev('cadastro_passo_' + (n + 1), {passo: n + 1}); if (n === 1 && window.fbq) try { fbq('trackCustom', 'CadastroIniciado'); } catch (e) {} }
   steps.forEach((s, i) => { s.hidden = i !== n; s.classList.toggle('on', i === n); });
   marks.forEach((m, i) => {
     m.classList.toggle('on', i === n); m.classList.toggle('done', i < n);

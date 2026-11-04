@@ -1,6 +1,6 @@
 /* 61 — medição das páginas do App do Proprietário (/app e /app/vender) · 04/11/2026
    Mesmas tags do site 61imoveis.com: Google Analytics 4 (G-VNTRT32BF0) e pixel da Meta (820470936707053).
-   Mede: página vista, tempo ativo na página (10/30/60/120/300 s com a aba visível), rolagem (25/50/75/90%),
+   Mede: página vista, tempo ativo na página (eventos tempo_ativo_10/30/60/120/300, só com a aba visível), rolagem (rolagem_25/50/75/90),
    cliques nos botões, passos do cadastro e cadastro enviado (generate_lead / Lead).
    Nunca envia nada que a pessoa digitou: só nomes de eventos, página e a campanha (UTM). */
 (function () {
@@ -42,7 +42,7 @@
     if (document.visibilityState !== 'visible') return;
     ativo++;
     if (prox < marcos.length && ativo >= marcos[prox]) {
-      ev('tempo_ativo', {segundos: marcos[prox]});
+      ev('tempo_ativo_' + marcos[prox], {segundos: marcos[prox]});
       if (marcos[prox] === 30) try { fbq('trackCustom', 'Leu30s', {pagina: pagina}); } catch (e) {}
       prox++;
     }
@@ -52,7 +52,7 @@
   var rol = [25, 50, 75, 90], rolFeito = {};
   function checaRolagem() {
     var h = document.documentElement, alto = Math.max(h.scrollHeight - window.innerHeight, 1), pct = Math.round(100 * (window.scrollY || h.scrollTop) / alto);
-    rol.forEach(function (r) { if (pct >= r && !rolFeito[r]) { rolFeito[r] = 1; ev('rolagem', {percentual: r}); } });
+    rol.forEach(function (r) { if (pct >= r && !rolFeito[r]) { rolFeito[r] = 1; ev('rolagem_' + r, {percentual: r}); } });
   }
   window.addEventListener('scroll', function () { clearTimeout(checaRolagem.t); checaRolagem.t = setTimeout(checaRolagem, 200); }, {passive: true});
 
