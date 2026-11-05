@@ -1,6 +1,6 @@
 /* 61 — Venda com a 61 (app) · /app/vender · TESTE v2: cadastro do imóvel em 4 passos
    Validação: a mesma da página de captação da campanha (deixe-meu-imovel/fontes/app.js).
-   Envio: o mesmo mecanismo da página /venda (formsubmit.co → 61@61imoveis.com), aqui aguardando a resposta.
+   Envio: Google Apps Script da 61 → planilha + e-mail (trocado do formsubmit em 05/11/2026, que não entregava), aguardando a resposta.
    Dados do Pulso 61: copiados de /venda (edição de 29/10/2026), sem alteração.
    Nenhum dado pessoal vai para URL, console, armazenamento ou analytics. */
 'use strict';
@@ -10,7 +10,8 @@ const PREVIA_ARTIFACT = false;
 if (PREVIA_ARTIFACT) document.addEventListener('DOMContentLoaded', () => { const d = document.createElement('div'); d.className = 'previa-bar'; d.setAttribute('role', 'note'); d.textContent = 'Prévia de teste · o envio do cadastro está desligado nesta cópia'; document.body.prepend(d); });
 
 const WHATS = '5561998786161';
-const EMAIL_LEADS = '61@61imoveis.com';
+// Google Apps Script da 61: planilha "Leads Procura-se 61" (aba app-vender) + e-mail pablo@61imoveis.com, cópia 61@61imoveis.com.
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwzEaViJIMLgJsBQIANGj3MeHB0CWwY0NI93ZhVtdJVjXhWVUK7PCyxYTMdW4wTLe3VlQ/exec';
 const SITE = 'https://estudos.inteligencia61imoveis.com.br/';
 const PULSO = SITE;
 const ENVIO_TIMEOUT_MS = 15000;
@@ -177,20 +178,21 @@ function payload() {
 
 async function envia() {
   const d = payload();
-  const body = Object.assign({_subject: 'Novo proprietário pela página da 61 (app): ' + d['Nome'] + ' · ' + d['Bairro'] + ' · cadastro do imóvel', _template: 'table', _captcha: 'false'}, d);
+  const body = {formulario: 'app-vender', assunto: 'Novo proprietário pela página da 61 (app): ' + d['Nome'] + ' · ' + d['Bairro'] + ' · cadastro do imóvel', campos: d};
   const ctrl = typeof AbortController === 'function' ? new AbortController() : null;
   const timer = ctrl ? setTimeout(() => ctrl.abort(), ENVIO_TIMEOUT_MS) : null;
   try {
-    const res = await fetch('https://formsubmit.co/ajax/' + EMAIL_LEADS, {
+    const res = await fetch(ENDPOINT, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
       body: JSON.stringify(body),
+      redirect: 'follow',
       signal: ctrl ? ctrl.signal : undefined
     });
     if (!res.ok) return false;
     let data = null;
     try { data = await res.json(); } catch (e) { return false; }
-    return !!data && (data.success === true || data.success === 'true');
+    return !!data && data.ok === true;
   } catch (e) {
     return false;
   } finally {
