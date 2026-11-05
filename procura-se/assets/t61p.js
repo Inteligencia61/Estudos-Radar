@@ -27,10 +27,16 @@
   // Pixel da Meta
   !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', PIXEL); fbq('track', 'PageView');
+  // Campanha Procura-se 61: o pixel e o GA4 recebem o bairro do anúncio (asa_sul | asa_norte) e a versão da página (ape | apartamento)
+  var bairroAd = (q && q.get('bairro')) === 'asa-norte' ? 'asa_norte' : ((q && q.get('bairro')) === 'asa-sul' ? 'asa_sul' : 'sem_bairro');
+  var versao = /apartamento/.test(location.pathname) ? 'apartamento' : 'ape';
+  window.T61.bairro = bairroAd; window.T61.versao = versao;
+  fbq('trackCustom', 'VisitaProcuraSe', {bairro: bairroAd, versao: versao, campanha: utm.utm_campaign || '(sem campanha)'});
+  gtag('event', 'visita_procura_se', {bairro_61: bairroAd, versao_61: versao, campanha_61: utm.utm_campaign || '(sem campanha)', variante_61: utm.utm_content || '(sem variante)'});
 
   function ev(nome, p) {
     try {
-      var params = Object.assign({pagina_61: pagina, campanha_61: utm.utm_campaign || '(sem campanha)', variante_61: utm.utm_content || '(sem variante)'}, p || {});
+      var params = Object.assign({pagina_61: pagina, bairro_anuncio_61: window.T61.bairro || '', versao_61: window.T61.versao || '', campanha_61: utm.utm_campaign || '(sem campanha)', variante_61: utm.utm_content || '(sem variante)'}, p || {});
       gtag('event', nome, params);
     } catch (e) {}
   }

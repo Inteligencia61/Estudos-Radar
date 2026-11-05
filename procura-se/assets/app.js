@@ -13,7 +13,7 @@ const result = document.getElementById('form-result');
 const errBox = document.getElementById('form-error');
 const submitBtn = form.querySelector('button[type="submit"]');
 const fields = [...form.children].filter(el => el !== result);
-const ev = (n, p) => { try { if (window.T61 && window.T61.ev) window.T61.ev(n, Object.assign({variante_pagina: VARIANTE}, p || {})); if (window.fbq && n === 'generate_lead') fbq('track', 'Lead'); } catch (e) {} };
+const ev = (n, p) => { try { if (window.T61 && window.T61.ev) window.T61.ev(n, Object.assign({variante_pagina: VARIANTE}, p || {})); if (window.fbq && n === 'generate_lead') fbq('track', 'Lead', {content_category: (p && p.bairro_61) || '', content_name: VARIANTE, bairro_anuncio: (window.T61 && window.T61.bairro) || ''}); } catch (e) {} };
 const UTM = (() => { try { const q = new URLSearchParams(location.search); return ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].filter(k => q.get(k)).map(k => k + '=' + q.get(k).slice(0, 100)).join(' · '); } catch (e) { return ''; } })();
 let sending = false, started = false;
 
