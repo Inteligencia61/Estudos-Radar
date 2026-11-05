@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2">
+  <meta name="description" content="Seu apartamento é perfeito para alguém! Conheça o processo comercial da 61, do anúncio à entrega das chaves.">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Seu apartamento é perfeito para alguém! | 61 Imóveis</title>
+  <link rel="stylesheet" href="/procura-se/assets/styles.css">
+  <link rel="icon" href="/procura-se/assets/logo-61-original.png">
+  <script src="/procura-se/assets/t61p.js"></script>
+  <script src="/procura-se/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#cadastro">Ir para a ficha de cadastro</a>
+  <header class="site-header wrap">
+    <a class="brand" href="#inicio" aria-label="61 Imóveis, início">
+      <span class="brand-mark"><img src="/procura-se/assets/logo-61-original.png" alt="61 Imóveis" width="4500" height="4500"></span>
+    </a>
+    <a class="header-link" href="#cadastro">Apresente seu imóvel <span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></span></a>
+  </header>
+
+  <main id="inicio">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="tiny-cross" aria-hidden="true">+</span> VOCÊ VIU O CARTAZ. AGORA, VAMOS CONVERSAR.</p>
+        <h1 id="hero-title">SEU APARTAMENTO <br>É PERFEITO <br><span class="last-line">PARA ALGUÉM!</span></h1>
+        <p class="hero-description">A 61 vai achar esse alguém e conduzir toda a venda, do anúncio até a entrega das chaves, sem nunca te abandonar.</p>
+        <a class="text-link hero-mobile-cta" href="#cadastro">Quero apresentar meu imóvel <span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></span></a>
+        <div class="hero-proof"><span class="hero-proof-mark" aria-hidden="true">✓</span><p><strong>Até as chaves. Está no contrato.</strong><br>Parecer jurídico na entrada. Especialistas no seu mercado.</p></div>
+      </div>
+
+      <div class="form-paper" id="cadastro">
+        <div class="form-topline"><span>VAMOS COMEÇAR PELO SEU IMÓVEL</span><span aria-hidden="true"><svg class="arrow-icon arrow-down" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></span></div>
+        <h2>Tem um apartamento perfeito?</h2>
+        <p class="form-intro">Conte o básico. Uma boa conversa começa por aqui.</p>
+        <form id="owner-form" novalidate data-variante="apartamento">
+          <div class="field">
+            <label for="owner-name">Seu nome <span class="required" aria-hidden="true">*</span></label>
+            <input id="owner-name" name="name" type="text" autocomplete="name" placeholder="Como podemos chamar você?" maxlength="100" required aria-describedby="name-error">
+            <span class="field-error" id="name-error"></span>
+          </div>
+          <div class="field">
+            <label for="owner-phone">Telefone / WhatsApp <span class="required" aria-hidden="true">*</span></label>
+            <input id="owner-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(61) 99999-9999" maxlength="20" required aria-describedby="phone-error">
+            <span class="field-error" id="phone-error"></span>
+          </div>
+          <fieldset class="neighborhood-field">
+            <legend>Onde fica o imóvel? <span class="required" aria-hidden="true">*</span></legend>
+            <div class="radio-options">
+              <label class="radio-option"><input type="radio" name="neighborhood" value="Asa Sul" required><span>Asa Sul <span class="radio-tick" aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></span></span></label>
+              <label class="radio-option"><input type="radio" name="neighborhood" value="Asa Norte"><span>Asa Norte <span class="radio-tick" aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></span></span></label>
+            </div>
+            <span class="field-error" id="neighborhood-error" aria-live="polite"></span>
+          </fieldset>
+          <div class="field">
+            <label for="property-type">Tipo de imóvel <span class="optional">opcional</span></label>
+            <select id="property-type" name="propertyType"><option value="">Selecione, se quiser</option><option>Apartamento</option><option>Cobertura</option><option>Kitnet / Studio</option><option>Outro</option></select>
+          </div>
+          <button class="primary-button" type="submit"><span>Quero conversar sobre meu imóvel</span><span class="button-arrow" aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></span></button>
+          <p class="privacy-note">Seus dados vão só para a equipe da 61, para conversar sobre o seu imóvel.</p>
+          <div class="form-error" id="form-error" role="alert" hidden></div>
+          <p class="required-note">* Campos obrigatórios</p>
+          <div class="form-result" id="form-result" role="status" tabindex="-1" hidden>
+            <span class="result-icon" aria-hidden="true">✓</span>
+            <h3>Recebemos seu contato.</h3>
+            <p>A equipe da 61 vai falar com você pelo telefone informado para conversar sobre o seu imóvel.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <nav class="chapter-nav" aria-label="Diferenciais da 61"><div class="wrap chapter-nav-inner"><div class="chapter-links"><a href="#compromisso">01 <span>Compromisso</span></a><a href="#inteligencia">02 <span>Inteligência</span></a><a href="#reconhecimento">03 <span>Reconhecimento</span></a></div><a href="#cadastro" class="chapter-cta"><span class="cta-desktop">Cadastre seu imóvel</span><span class="cta-mobile">Cadastro</span> <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></a></div></nav>
+
+    <section class="commitments wrap" id="compromisso" aria-labelledby="commitments-title">
+      <div class="section-kicker"><span>POR QUE A 61</span><span>GESTÃO TOTAL DE VENDAS</span></div>
+      <div class="section-heading"><h2 id="commitments-title">CONHEÇA O PROCESSO<br>COMERCIAL DA 61.</h2><p>E descubra a diferença entre uma imobiliária e uma empresa imobiliária.</p></div>
+      <div class="commitment-grid">
+        <article class="commitment-card key-commitment"><div class="card-meta"><span>01 / COMPROMISSO</span><span class="contract-label">EM CONTRATO</span></div><h3>ATÉ AS CHAVES.<br>COM VOCÊ.</h3><p>Em nosso contrato, garantimos o acompanhamento completo após a assinatura do contrato. É a sua garantia de que você nunca vai ficar sozinho no financiamento, na documentação, na escritura ou no acerto de contas.</p><div class="owner-benefit"><span>O QUE ISSO MUDA PARA VOCÊ</span><strong>Uma equipe responsável pelo caminho inteiro.</strong></div></article>
+        <article class="commitment-card"><div class="card-meta"><span>02 / SEGURANÇA NA ENTRADA</span><span aria-hidden="true">+</span></div><h3>Parecer jurídico<br>desde o começo.</h3><p>Levantamos e analisamos as certidões e a documentação no início do processo de venda. Assim, não esperamos uma multa ou a venda cair para resolver alguma situação. O parecer jurídico é assinado pela nossa equipe jurídica.</p><div class="owner-benefit"><span>PARA O PROPRIETÁRIO</span><strong>Clareza sobre o imóvel desde o primeiro passo.</strong></div></article>
+        <article class="commitment-card"><div class="card-meta"><span>03 / CONHECIMENTO ESPECÍFICO</span><span aria-hidden="true">+</span></div><h3>Seu imóvel com um<br>Expert de verdade.</h3><p>Na 61, cada corretor atua em nichos de mercado. Esses nichos são recortes dentro de cada bairro, para que a avaliação, a apresentação e o atendimento sejam feitos por profissionais de verdade.</p><details class="compact-detail"><summary>O que significa ser Expert <span aria-hidden="true">+</span></summary><p>Expert é um título interno conquistado. Os critérios da 61 incluem 24 captações no bairro, participação no clube Performer, pelo menos um ano de atuação naquele bairro pela empresa e aprovação da diretoria. O conhecimento específico faz parte dessa trajetória.</p></details><div class="owner-benefit"><span>PARA O PROPRIETÁRIO</span><strong>Uma leitura específica do seu imóvel e do público dele.</strong></div></article>
+        <article class="commitment-card"><div class="card-meta"><span>04 / PRESENÇA NO MERCADO</span><span aria-hidden="true">+</span></div><h3>A 61 tem a maior verba de marketing do mercado.</h3><p>Investimento feito de maneira multimídia para achar o comprador na rua, na chuva, na fazenda e até na casinha de sapê.</p><div class="owner-benefit"><span>PARA O PROPRIETÁRIO</span><strong>Seu imóvel apresentado com intenção, contexto e acompanhamento.</strong></div></article>
+      </div>
+    </section>
+
+    <section class="intelligence" id="inteligencia" aria-labelledby="intelligence-title"><div class="wrap">
+      <div class="section-kicker"><span>INTELIGÊNCIA EM TODA A VENDA</span><span>INVESTIMENTO EM DADOS DESDE 2019</span></div>
+      <div class="intelligence-top"><h2 id="intelligence-title">O ANÚNCIO ENTRA NO AR.<br>A ANÁLISE CONTINUA.</h2><p>Mercado muda. O momento importa. A inteligência da 61 ajuda a entender o cenário, acompanhar a resposta ao imóvel e orientar as próximas decisões.</p></div>
+      <div class="intelligence-workspace">
+        <div class="intelligence-tabs" role="tablist" aria-label="Inteligência durante a venda">
+          <button id="tab-entry" role="tab" aria-selected="true" aria-controls="panel-entry" tabindex="0"><span>01</span> Antes de anunciar <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button>
+          <button id="tab-market" role="tab" aria-selected="false" aria-controls="panel-market" tabindex="-1"><span>02</span> Depois de anunciar <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button>
+          <button id="tab-owner" role="tab" aria-selected="false" aria-controls="panel-owner" tabindex="-1"><span>03</span> Na sua mão <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+        <div class="intelligence-panels">
+          <section id="panel-entry" class="intelligence-panel" role="tabpanel" aria-labelledby="tab-entry" tabindex="0"><span class="panel-eyebrow">ENTENDER O CENÁRIO</span><h3>Seu imóvel no contexto<br>do mercado.</h3><p>A 61 investe em seu departamento de inteligência mercadológica desde 2019. Monitorando todos os anúncios do DF e seus comportamentos, sabemos quantos imóveis concorrentes do seu existem, entram e saem, e se os preços dos anúncios estão mudando.</p><p class="editorial-paragraph">Esse acompanhamento diário gera uma inteligência única em Brasília e fornece uma visão REAL do mercado.</p><p class="editorial-paragraph">Aqui não existe achismo: existe inteligência e tecnologia.</p><div class="data-topics"><span>Mercado</span><span>Momento</span><span>Posicionamento</span></div><p class="panel-takeaway">Para você: decidir com informação sobre o cenário em que seu imóvel vai competir.</p></section>
+          <section id="panel-market" class="intelligence-panel" role="tabpanel" aria-labelledby="tab-market" tabindex="0" hidden><span class="panel-eyebrow">ACOMPANHAR A RESPOSTA</span><h3>A venda é acompanhada.<br>A estratégia também.</h3><p>Depois dos anúncios, o imóvel é acompanhado diariamente e comparado com a média do mercado para analisarmos se a performance está abaixo ou acima. Isso acontece antes do primeiro cliente chegar, para termos segurança ao trocar uma foto, alterar um título ou sugerir melhorias.</p><p class="editorial-paragraph">Achismo é uma palavra que não existe em nosso vocabulário.</p><div class="data-topics"><span>Divulgação</span><span>Visitas</span><span>Propostas</span></div><p class="panel-takeaway">Para você: uma conversa contínua sobre o que está acontecendo com o seu imóvel.</p></section>
+          <section id="panel-owner" class="intelligence-panel" role="tabpanel" aria-labelledby="tab-owner" tabindex="0" hidden><span class="panel-eyebrow">APP 61 MEU IMÓVEL</span><h3>Na 61, você acompanha<br>tudo no seu app.</h3><p>No app do proprietário, você sabe o volume de views, cliques, leads e clientes do seu imóvel e acompanha a análise de cada visita em tempo real.</p><p class="editorial-paragraph">Aqui, você nunca fica sem feedback.</p><div class="app-features"><span>Views</span><span>Cliques</span><span>Leads e clientes</span><span>Feedback das visitas</span></div></section>
+        </div>
+      </div>
+      <div class="intelligence-foot"><p>Ciência de dados e bases de informação fazem parte do investimento da 61 desde 2019.</p></div>
+    </div></section>
+
+    <section class="recognition wrap" id="reconhecimento" aria-labelledby="recognition-title">
+      <div class="section-kicker"><span>QUEM ESTÁ POR TRÁS DA SUA VENDA</span><span>UMA TRAJETÓRIA RECONHECIDA</span></div>
+      <div class="section-heading"><h2 id="recognition-title">RESPONSABILIDADE<br>QUE VAI ALÉM DO DISCURSO.</h2><p>Conheça os compromissos,<br>as pessoas e as referências.</p></div>
+      <div class="recognition-grid">
+        <article class="recognition-card award-card"><span class="recognition-eyebrow">IMÓVEIS SEGUROS</span><h3>5x</h3><p class="recognition-name">Pentacampeã em imóveis seguros.</p><p>Cinco conquistas que reconhecem o trabalho da 61 com imóveis seguros.</p></article>
+        <article class="recognition-card integrity-card"><span class="recognition-eyebrow">INTEGRIDADE</span><h3>IMÓVEL +<br>INTEGRIDADE</h3><p class="recognition-name">2023 · 2024 · 2025 · 2026</p><p>Selo do CRECI-DF em parceria com a CGU e o Instituto Ethos, além de outras organizações verificadoras.</p></article>
+        <article class="recognition-card leadership-card"><span class="recognition-eyebrow">CONHECIMENTO COMPARTILHADO</span><h3>ENTRE OS 100<br>MAIS INFLUENTES<br>DO BRASIL.</h3><p class="recognition-name">Pablo Bueno, Diretor da 61 Imóveis</p><p>Eleito entre as 100 personalidades mais influentes do mercado imobiliário nacional em 2025 pelo Imobi Report. É palestrante e professor, com palestras em todo o Brasil para milhares de corretores em eventos do CRECI-SC, Cúpola Summit, Jet Experience, entre outros. A 61 é um case estudado por imobiliárias de todo o Brasil.</p></article>
+      </div>
+    </section>
+
+    <section class="campaign-close wrap" aria-labelledby="close-title">
+      <figure class="campaign-image"><img src="/procura-se/assets/cartaz-brasilia-v3.png" alt="Cartaz da campanha em um poste: Procura-se apartamento em Brasília. Para uma família construir sua nova história." width="1122" height="1402" loading="lazy"><figcaption>O cartaz inicia a conversa. A 61 cuida dos próximos passos.</figcaption></figure>
+      <div class="close-copy"><p class="eyebrow">TEM UM IMÓVEL ASSIM?</p><h2 id="close-title">SEU APARTAMENTO<br>PODE SER O NASCIMENTO<br>DE UMA LINDA HISTÓRIA.</h2><a class="primary-button" href="#cadastro"><span>Quero cadastrar meu apartamento</span><span aria-hidden="true"><svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.5"/></svg></span></a></div>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap"><span>61 IMÓVEIS <span class="footer-divider">/</span> BRASÍLIA, DF</span><span>Asa Sul + Asa Norte</span><a href="#inicio">Voltar ao início ↑</a></footer>
+</body>
+</html>
