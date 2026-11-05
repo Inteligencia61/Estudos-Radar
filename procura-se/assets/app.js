@@ -1,8 +1,9 @@
 /* 61 — Campanha Procura-se 61 · landings /procura-se/ape e /procura-se/apartamento · publicação 05/11/2026
-   Envio: formsubmit.co → pablo@61imoveis.com (mesmo mecanismo de /app/vender), esperando a confirmação antes de mostrar sucesso.
+   Envio: Google Apps Script → planilha + e-mail pablo@61imoveis.com (trocado do formsubmit em 05/11, que não entregava), esperando a confirmação antes de mostrar sucesso.
    Nenhum dado digitado vai para URL, console, armazenamento ou analytics. */
 'use strict';
-const EMAIL_LEADS = 'pablo@61imoveis.com';
+// Google Apps Script "Procura-se 61 · formulário" (conta pablovfbueno@gmail.com): grava na planilha "Leads Procura-se 61" e envia e-mail a pablo@61imoveis.com.
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwzEaViJIMLgJsBQIANGj3MeHB0CWwY0NI93ZhVtdJVjXhWVUK7PCyxYTMdW4wTLe3VlQ/exec';
 const WHATS = '5561998786161';
 const ENVIO_TIMEOUT_MS = 15000;
 const form = document.getElementById('owner-form');
@@ -29,14 +30,18 @@ document.querySelectorAll('input[name="neighborhood"]').forEach(radio => {
 });
 
 async function envia(d) {
-  const body = Object.assign({_subject: 'Procura-se 61 · novo proprietário: ' + d['Nome'] + ' · ' + d['Bairro do imóvel'] + ' (' + d['Versão da página'] + ')', _template: 'table', _captcha: 'false'}, d);
+  const body = {
+    nome: d['Nome'], telefone: d['Telefone / WhatsApp'], bairro: d['Bairro do imóvel'], tipo: d['Tipo de imóvel'],
+    versao: d['Versão da página'], bairro_anuncio: (window.T61 && window.T61.bairro) || '', utm: d['Origem'], pagina: d['Página']
+  };
   const ctrl = typeof AbortController === 'function' ? new AbortController() : null;
   const timer = ctrl ? setTimeout(() => ctrl.abort(), ENVIO_TIMEOUT_MS) : null;
   try {
-    const res = await fetch('https://formsubmit.co/ajax/' + EMAIL_LEADS, {method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}, body: JSON.stringify(body), signal: ctrl ? ctrl.signal : undefined});
+    // text/plain = requisição simples (sem preflight), aceita pelo Google Apps Script.
+    const res = await fetch(ENDPOINT, {method: 'POST', headers: {'Content-Type': 'text/plain;charset=utf-8'}, body: JSON.stringify(body), redirect: 'follow', signal: ctrl ? ctrl.signal : undefined});
     if (!res.ok) return false;
     let data = null; try { data = await res.json(); } catch (e) { return false; }
-    return !!data && (data.success === true || data.success === 'true');
+    return !!data && data.ok === true;
   } catch (e) { return false; } finally { if (timer) clearTimeout(timer); }
 }
 
