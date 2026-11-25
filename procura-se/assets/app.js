@@ -74,7 +74,7 @@ form.addEventListener('submit', async event => {
     'Nome': nameInput.value.trim().slice(0, 100),
     'Telefone / WhatsApp': phoneInput.value.trim().slice(0, 20),
     'Bairro do imóvel': selected.value,
-    'Tipo de imóvel': document.getElementById('property-type').value || 'não informado',
+    'Tipo de imóvel': ((document.getElementById('property-type') || {}).value) || 'não informado',
     'Versão da página': VARIANTE === 'apartamento' ? 'APARTAMENTO' : 'APÊ',
     'Origem': UTM || document.referrer || 'direto',
     'Página': location.href.split('?')[0].split('#')[0],
@@ -101,6 +101,10 @@ form.addEventListener('submit', async event => {
 const campaignArea = new URLSearchParams(location.search).get('bairro');
 if (campaignArea === 'asa-sul' || campaignArea === 'asa-norte') {
   form.querySelector(`input[value="${campaignArea === 'asa-sul' ? 'Asa Sul' : 'Asa Norte'}"]`).checked = true;
+  // 24/11/2026: quem chega pelo anúncio já vem com o bairro definido; a ficha fica só com nome e telefone.
+  const nf = form.querySelector('.neighborhood-field'); if (nf) nf.hidden = true;
+  const wl = document.getElementById('whats-link');
+  if (wl) wl.href = 'https://wa.me/' + WHATS + '?text=' + encodeURIComponent('Olá! Vi o cartaz Procura-se e quero conversar sobre o meu imóvel na ' + (campaignArea === 'asa-sul' ? 'Asa Sul' : 'Asa Norte') + '.');
 }
 
 // Abas da inteligência (teclado e clique), como no original.

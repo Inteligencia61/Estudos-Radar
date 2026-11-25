@@ -239,3 +239,10 @@ summary::-webkit-details-marker { display:none; }
 .form-error[hidden] { display:none; }
 .form-error a { color:var(--ink); }
 .primary-button[aria-busy="true"] { opacity:.6; cursor:progress; }
+
+/* 24/11/2026 — ficha mais curta: WhatsApp direto abaixo do botão e, no celular, a ficha logo depois do título. */
+.whats-link { width:100%; margin-top:10px; border:1px solid var(--ink); min-height:50px; padding:13px 17px; display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:12px; font-weight:600; line-height:1.4; color:var(--ink); background:transparent; text-decoration:none; transition:background .18s; }
+.whats-link:hover { background:#efeee8; }
+.whats-link>span:last-child { font-size:22px; line-height:1; }
+.neighborhood-field[hidden] { display:none; }
+@media(max-width:760px) { .hero { row-gap:0; }.hero-copy { display:contents; }.hero .eyebrow { order:1; }.hero h1 { order:2; }.form-paper { order:3; margin-top:20px; }.hero-description { order:4; margin-top:26px; }.hero-proof { order:5; }.whats-link { min-height:52px; padding:14px 16px; } }
